@@ -1,8 +1,20 @@
-Unordered list:
+<!--suppress ALL -->
 
+HTML | CSS
+
+
+Unordered list:
 <ul class="bold-list">
     <li>
         <a href="/theatres/"> </a>
     </li>
 </ul>
 
+
+
+Blade
+
+Adding values to partial globally
+view()->composer( {{ partial name }} , function ($view) {
+    $view->with( {{ var name }} , {{ var value }}  );
+});
