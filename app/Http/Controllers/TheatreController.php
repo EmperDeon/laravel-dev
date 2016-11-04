@@ -10,12 +10,32 @@ use App\Theatre;
 class TheatreController extends Controller
 {
     /**
-     * Get all elements.
+     * Get all elements for web.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
+        return view('models.theatres')->with(['theatres' => Theatre::all()]);
+    }
+
+    /**
+     * Display the specified element.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id)
+    {
+        return view('models.theatre')->with(['theatre' => Theatre::findOrFail($id)]);
+    }
+
+    /**
+     * Get all elements in json
+     *
+     * @return string
+     */
+    public function all () {
         return Theatre::with(['halls'])->get();
     }
 
@@ -27,21 +47,8 @@ class TheatreController extends Controller
      */
     public function store(Request $request)
     {
-
-        return response()->json(['123']);
+        return response()->json();
     }
-
-    /**
-     * Display the specified element.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
 
     /**
      * Update the specified element/
@@ -52,7 +59,7 @@ class TheatreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response()->json();
     }
 
     /**
@@ -63,6 +70,6 @@ class TheatreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return response()->json();
     }
 }

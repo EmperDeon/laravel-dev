@@ -19,3 +19,17 @@ require('./bootstrap-hover-dropdown.min');
 const app = new Vue({
     el: 'body'
 });
+
+$('#navbar-collapse-1')
+    .on('shown.bs.collapse', function () {
+        $('#navbar-collapse-1').find('.dropdown').each(function () {
+            $(this).addClass('open');
+
+        });
+    })
+    .on('hidden.bs.collapse', function () {
+        $('#navbar-collapse-1').find('.dropdown').each(function () {
+            $(this).removeClass('open');
+
+        });
+    });
