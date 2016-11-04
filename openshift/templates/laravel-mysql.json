@@ -135,7 +135,7 @@
             "failurePolicy": "Retry",
             "execNewPod": {
               "command": [
-                "./migrate-database.sh"
+                "php artisan migrate --force"
               ],
               "containerName": "laravel-mysql-example"
             }
