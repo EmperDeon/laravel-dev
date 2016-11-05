@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(U_RolesSeeder::class);
 
         $this->call(ActorSeeder::class);
+        $this->call(P_TypeSeeder::class);
         $this->call(PerformanceSeeder::class);
 
         $this->call(TheatreSeeder::class);
@@ -23,5 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(T_PerformanceSeeder::class);
 
         $this->call(PosterSeeder::class);
+
+        $this->call(ArticleSeeder::class);
     }
 }

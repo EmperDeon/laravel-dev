@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\P_Type;
 use App\Theatre;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +15,9 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        view()->composer('part.nav-bar', function ($view) {
+            $view->with('p_types', P_Type::all());
+        });
     }
 
     /**

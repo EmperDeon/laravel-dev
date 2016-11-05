@@ -12,9 +12,9 @@ class PerformanceSeeder extends Seeder
      */
     public function run()
     {
-        Performance::create(['name' => 'Веселая Вдова', 'author' => 'Франц Легар', 'genre' => 'Оперетта']);
-        Performance::create(['name' => 'Летучая Мышь', 'author' => 'Иоганн Штраус', 'genre' => 'Оперетта']);
-        Performance::create(['name' => 'Голубой Дунай', 'author' => 'Иоганн Штраус', 'genre' => 'Балет']);
-        Performance::create(['name' => 'Кодаса', 'author' => 'Загир Исмагилов', 'genre' => 'Музыкальная комедия']);
+        Performance::create(['name' => 'Веселая Вдова', 'author' => 'Франц Легар', 'type_id' => '3']);
+        Performance::create(['name' => 'Летучая Мышь', 'author' => 'Иоганн Штраус', 'type_id' => '3']);
+        Performance::create(['name' => 'Голубой Дунай', 'author' => 'Иоганн Штраус', 'type_id' => '2']);
+        Performance::create(['name' => 'Кодаса', 'author' => 'Загир Исмагилов', 'type_id' => '4']);
     }
 }

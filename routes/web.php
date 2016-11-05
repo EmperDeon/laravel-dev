@@ -15,3 +15,7 @@ Route::get('/', function () { return view('index'); });
 
 Route::get('/theatres/', 'TheatreController@index');
 Route::get('/theatres/{id}', 'TheatreController@show');
+
+Route::get('/articles/', 'ArticleController@index');
+Route::get('/articles/{id}', 'ArticleController@show');
+

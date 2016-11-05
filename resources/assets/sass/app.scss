@@ -11,39 +11,67 @@
 
 
 
-header {
-  padding-top: 40px;
+a {
+  font: normal 700 12pt Roboto;
+  text-decoration: underline;
 }
 
-.container {
-  a {
-    font: normal 700 12pt Roboto;
-    text-decoration: underline;
+p {
+  font: normal normal 10pt Verdana;
+
+}
+
+.bold-list {
+  list-style-image: url('/img/marker-r.png');
+
+  li {
   }
+}
 
-  p {
-    font: normal normal 10pt Verdana;
+body > .container {
+  margin-top: 60px;
 
-  }
+  .panel {
+    padding: 20px;
 
-  .bold-list {
-    list-style-image: url('/img/marker-r.png');
-
-    li {
-    }
-  }
-
-  .theatre-info {
-    a {
-      font-size: 14pt;
-      text-decoration: underline;
+    h1 {
+      margin-top: 0;
     }
 
+    .article-info {
+      a {
+        font-size: 14pt;
+        text-decoration: underline;
+      }
 
-    img {
-      float: left;
-      width: 320px;
-      padding: 0 20px 20px 0;
+
+      img {
+        float: left;
+        max-width: 420px;
+        padding: 0 20px 20px 0;
+      }
+    }
+
+    .article-info-small {
+      @extend .article-info;
+
+      img {
+        max-width: 320px;
+      }
+    }
+
+    .theatre-info {
+      a {
+        font-size: 14pt;
+        text-decoration: underline;
+      }
+
+
+      img {
+        float: left;
+        width: 320px;
+        padding: 0 20px 20px 0;
+      }
     }
   }
 }

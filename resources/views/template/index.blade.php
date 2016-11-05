@@ -11,12 +11,14 @@
     @yield('header')
 </head>
 <body>
-<header>
-    @include('part.nav-bar')
-</header>
+@include('part.nav-bar')
 
 <div class="container">
-    @yield('content')
+    <div class="col-md-12">
+        <div class="panel">
+            @yield('content')
+        </div>
+    </div>
 </div>
 
 <script src="{{  asset('/script.js')  }}"></script>
