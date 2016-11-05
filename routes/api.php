@@ -20,6 +20,7 @@ Route::any('/auth/check', 'AuthController@check'); // Check token for errors
 Route::any('/auth/roles', 'AuthController@roles'); // Get all roles of current user
 
 /* Routes, than doesn't require roles */
+Route::any('/updates/{stamp}', 'UpdatesController@updates');
 Route::any('/theatre/', 'TheatreController@index'); // Get list of theatres and their halls
 
 
