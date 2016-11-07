@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -15,13 +17,26 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthController extends Controller
 {
+
+    /**
+     *
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function logout () {
+        Auth::logout();
+
+        return redirect('/');
+
+    }
+
     /**
      * Get token for login/password
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function auth(Request $request)
+    public function auth (Request $request)
     {
         $credentials = $request->only('login', 'password');
 
@@ -69,6 +84,13 @@ class AuthController extends Controller
         return response()->json(compact('newToken'));
     }
 
+
+    /**
+     * Validate token
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function check (Request $request)
     {
         try {
@@ -89,6 +111,12 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Return all user roles
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function roles(Request $request)
     {
         try {

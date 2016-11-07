@@ -10,7 +10,7 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 
-
+/* Global */
 a {
   font: normal 700 12pt Roboto;
   text-decoration: underline;
@@ -28,6 +28,26 @@ p {
   }
 }
 
+/* Login modal */
+#loginModal {
+  .modal-header, h4, .close {
+    padding: 15px 25px;
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .modal-body {
+    padding: 15px 25px;
+  }
+
+  .modal-footer {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Main content */
 body > .container {
   margin-top: 60px;
 
