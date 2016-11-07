@@ -20,7 +20,7 @@
                     <a href="/performances/" data-hover="dropdown" class="dropdown-toggle">@lang('global.perfs') <b class="nav-caret"></b></a>
                     <ul role="menu" class="dropdown-menu">
                         @foreach($p_types as $type)
-                            <li><a href="/performances/by_type/{{$type->id}}">{{$type->name}}</a></li>
+                            <li><a href="/performances?by_type={{$type->id}}">{{$type->name}}</a></li>
                         @endforeach
                     </ul>
                 </li>

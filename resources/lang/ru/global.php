@@ -15,6 +15,10 @@ return [
     'sign-in' => 'Регистрация',
     'log-in' => 'Войти',
 
+    'lorem-s' => '<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas suscipit facilisis ligula. Phasellus arcu elit, volutpat ac sagittis nec, euismod ut lacus. Nam fringilla lacinia turpis, vel maximus mauris porttitor eu. Vivamus et orci luctus, egestas neque vitae, aliquam lacus. Donec odio urna, mollis in lacus tristique, porttitor commodo felis. Praesent vitae pellentesque arcu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam pellentesque id velit nec vehicula.
+</p>',
+
     'lorem' => '<p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas suscipit facilisis ligula. Phasellus arcu elit, volutpat ac sagittis nec, euismod ut lacus. Nam fringilla lacinia turpis, vel maximus mauris porttitor eu. Vivamus et orci luctus, egestas neque vitae, aliquam lacus. Donec odio urna, mollis in lacus tristique, porttitor commodo felis. Praesent vitae pellentesque arcu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam pellentesque id velit nec vehicula.
 </p><p>

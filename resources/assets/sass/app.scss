@@ -1,7 +1,6 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,100&subset=latin,cyrillic-ext);
+@import "fonts";
 
 // Variables
 @import "variables";
@@ -16,9 +15,17 @@ a {
   text-decoration: underline;
 }
 
+a.selected {
+  background-color: #55f;
+}
+
 p {
   font: normal normal 10pt Verdana;
 
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
 }
 
 .bold-list {
@@ -51,52 +58,66 @@ p {
 body > .container {
   margin-top: 60px;
 
-  .panel {
-    padding: 20px;
+  h1 {
+    margin-top: 0;
+  }
 
-    h1 {
-      margin-top: 0;
+  img {
+    float: left;
+    width: 100%;
+    min-width: 10px;
+    max-width: 420px;
+    height: auto;
+    padding: 0 20px 20px 0;
+  }
+
+  .article-info {
+    a {
+      font-size: 14pt;
+      text-decoration: underline;
     }
 
-    .article-info {
-      a {
-        font-size: 14pt;
-        text-decoration: underline;
-      }
+    img {
+      max-width: 420px;
+    }
+  }
 
+  .article-info-small {
+    @extend .article-info;
 
-      img {
-        float: left;
-        max-width: 420px;
-        padding: 0 20px 20px 0;
-      }
+    img {
+      max-width: 320px;
+    }
+  }
+
+  .perf-info {
+    padding: 10px 10px 60px 10px;
+
+  }
+
+  .perf-info-big {
+    @extend .perf-info;
+
+    img {
+      float: none;
+      max-width: 580px;
+    }
+  }
+
+  .theatre-info {
+    a {
+      font-size: 14pt;
+      text-decoration: underline;
     }
 
-    .article-info-small {
-      @extend .article-info;
-
-      img {
-        max-width: 320px;
-      }
-    }
-
-    .theatre-info {
-      a {
-        font-size: 14pt;
-        text-decoration: underline;
-      }
-
-
-      img {
-        float: left;
-        width: 320px;
-        padding: 0 20px 20px 0;
-      }
+    img {
+      max-width: 320px;
     }
   }
 }
 
 .navbar {
+  //background: $brand-primary;
   font: normal 700 12pt Roboto;
 
   a {

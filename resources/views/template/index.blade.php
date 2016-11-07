@@ -15,9 +15,7 @@
 
 <div class="container">
     <div class="col-md-12">
-        <div class="panel">
-            @yield('content')
-        </div>
+        @yield('content')
     </div>
 </div>
 
