@@ -1,2 +1,2 @@
-<div>{!! $perf_types !!}</div>
+<span class="perf-types">{!! $perf_types !!}</span>
 

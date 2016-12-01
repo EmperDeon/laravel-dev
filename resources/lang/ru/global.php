@@ -2,6 +2,8 @@
 
 return [
 
+    'clear' => 'Очистить',
+
     // Nav-bar
     'site-name' => '<Сайт с афишами>',
     'posters' => 'Афиша',

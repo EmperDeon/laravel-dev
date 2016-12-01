@@ -1,11 +1,11 @@
 @extends('template.index')
 
 @section('content')
-    <h2>Репертуар </h2> @include('part.perf-types')
+    <h2>Выступление @include('part.perf-types')</h2>
     <h3> {{ $perf->perf->name }} </h3>
-    <a href="/theatres/{{ $perf->theatre_id }}"><h5> {{ $perf->theatre->name }}</h5></a>
-    <a href="/performances/{{ $perf->theatre_id }}"><h5>{{ $perf->perf->type->name }}</h5></a>
-    <div class="perf-info-big">
+    {{--<a href="/theatres/{{ $perf->theatre_id }}"><h5> {{ $perf->theatre->name }}</h5></a>--}}
+    {{--<a href="/performances?by_type={{ $perf->perf->type_id }}"><h5>{{ $perf->perf->type->name }}</h5></a>--}}
+    <div class="perf">
         <div class="row">
             <div class="col-md-8">
                 <img src="/img/{{ $perf->img }}" alt="Изображение выступления"/> <br />

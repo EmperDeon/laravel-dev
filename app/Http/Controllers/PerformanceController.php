@@ -15,11 +15,10 @@ class PerformanceController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->has('by_type')){
-            $p = T_Performance::by_type($request->get('by_type'))->get();
-        }else{
-            $p = T_Performance::all();
-        }
+        $p = T_Performance
+        ::by_type($request->get('by_type'))
+        ->by_theatre($request->get('by_theatre'))
+        ->get();
 
         return view('models.perfs')->with(['perfs' => $p]);
     }

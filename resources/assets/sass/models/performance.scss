@@ -1,0 +1,30 @@
+.perf {
+  padding: 10px 10px 60px 10px;
+
+  img {
+    float: none;
+    max-width: 580px;
+  }
+}
+
+.perf-small {
+  @extend .perf;
+
+  img {
+    max-width: 320px;
+  }
+}
+
+.perf-types {
+  margin-left: 30px;
+
+  a.btn {
+    text-decoration: none;
+  }
+
+  a.btn.selected {
+    color:#fff;
+    background-color:#6b9dbb;
+    border-color:#538db0
+  }
+}

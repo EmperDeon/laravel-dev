@@ -1,0 +1,19 @@
+.posters-table {
+  @extend .table;
+
+
+  .date {
+    text-align: left;
+
+    width: 150px;
+  }
+
+  .name {
+
+  }
+
+  .time {
+    text-align: right;
+
+  }
+}

@@ -22,7 +22,7 @@ Route::get('/articles/', 'ArticleController@index');
 Route::get('/articles/{id}', 'ArticleController@show');
 
 Route::get('/posters/', 'PosterController@index');
-Route::get('/posters/{id}', 'PosterController@show');
+Route::get('/posters/{id}', 'PerformanceController@show');
 
 Route::get('/performances/', 'PerformanceController@index');
 Route::get('/performances/{id}', 'PerformanceController@show');

@@ -3,7 +3,7 @@
 @section('content')
     <h1> {{ $theatre->name }} </h1>
 
-    <div>
+    <div class="theatre">
         <img src="/img/{{ $theatre->img }}" alt="Изображение театра"/>
         <p>
             {!! $theatre->desc !!}

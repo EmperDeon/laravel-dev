@@ -10,22 +10,20 @@ class PosterController extends Controller
     /**
      * Get all elements for web.
      *
+     * @param Request $request
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('models.posters')->with(['posters' => Poster::all()]);
-    }
 
-    /**
-     * Display the specified element.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show($id)
-    {
-        return view('models.poster')->with(['poster' => Poster::findOrFail($id)]);
+        $p = Poster
+            ::by_type($request->get('by_type'))
+            ->by_theatre($request->get('by_theatre'))
+            ->by_month($request->get('by_month'))
+            ->get();
+
+
+        return view('models.posters')->with(['posters' => $p]);
     }
 
     /**
