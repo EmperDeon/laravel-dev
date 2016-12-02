@@ -19,8 +19,8 @@ class Poster extends Model
         return $query;
     }
 
-    public function scopeBy_theatre ($query, $type) {
-        $perf = T_Performance::by_theatre($type)->get();
+    public function scopeBy_theatre ($query, $id) {
+        $perf = T_Performance::by_theatre($id)->get();
 
         $query->where('t_perf_id', $perf->count() > 0 ? $perf->take(1)[0]->id : -1);
 
@@ -30,14 +30,9 @@ class Poster extends Model
         return $query;
     }
 
-    public function scopeBy_month ($query, $type) {
-        $perf = T_Performance::by_type($type)->get();
-
-        $query->where('t_perf_id', $perf->count() > 0 ? $perf->take(1)[0]->id : -1);
-
-        foreach($perf as $v)
-            $query->orWhere('t_perf_id', $v->id);
-
+    public function scopeBy_month ($query, $month) {
+        if ($month)
+            return $query->whereMonth('date', $month);
         return $query;
     }
 

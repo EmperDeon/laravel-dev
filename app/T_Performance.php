@@ -9,21 +9,20 @@ class T_Performance extends Model
     protected $fillable = ['theatre_id', 'perf_id', 'desc', 'desc_s', 'img'];
 
     public function scopeBy_type ($query, $id) {
-        if($id)
+        if ($id)
             return $query->whereHas('perf', function ($q) use ($id) {
                 $q->where('type_id', $id);
             });
-        else
-            return $query;
+
+        return $query;
     }
 
     public function scopeBy_theatre ($query, $id) {
-        if($id)
+        if ($id)
             return $query->whereHas('perf', function ($q) use ($id) {
                $q->where('theatre_id', $id);
             });
-        else
-            return $query;
+        return $query;
     }
 
     public function theatre () {

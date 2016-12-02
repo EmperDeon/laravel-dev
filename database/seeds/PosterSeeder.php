@@ -19,13 +19,19 @@ class PosterSeeder extends Seeder
         Poster::create(['hall_id' => 2, 't_perf_id' => 2, 'date' => $d]);
         Poster::create(['hall_id' => 5, 't_perf_id' => 5, 'date' => $d]);
 
-        $d->addDays(1);
+        $d->addDays(5);
         Poster::create(['hall_id' => 2, 't_perf_id' => 2, 'date' => $d]);
         Poster::create(['hall_id' => 1, 't_perf_id' => 3, 'date' => $d]);
         Poster::create(['hall_id' => 3, 't_perf_id' => 2, 'date' => $d]);
         Poster::create(['hall_id' => 4, 't_perf_id' => 5, 'date' => $d]);
 
-        $d->addDays(2);
+        $d->addMonth(1);
+        Poster::create(['hall_id' => 3, 't_perf_id' => 1, 'date' => $d]);
+        Poster::create(['hall_id' => 4, 't_perf_id' => 4, 'date' => $d]);
+        Poster::create(['hall_id' => 5, 't_perf_id' => 5, 'date' => $d]);
+        Poster::create(['hall_id' => 6, 't_perf_id' => 6, 'date' => $d]);
+
+        $d->addMonth(1);
         Poster::create(['hall_id' => 3, 't_perf_id' => 1, 'date' => $d]);
         Poster::create(['hall_id' => 4, 't_perf_id' => 4, 'date' => $d]);
         Poster::create(['hall_id' => 5, 't_perf_id' => 5, 'date' => $d]);

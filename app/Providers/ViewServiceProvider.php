@@ -71,15 +71,12 @@ class ViewServiceProvider extends ServiceProvider
             $r .= $this->getMenu($nm, $i_th, $t_name, 'by_theatre', Theatre::all());
 
 
-//             TODO: debug that
-//             Add 'Month' menu, if it's poster
+            if ($path == 'posters') {
+                $mon = trans('global.months');
+                $t_name = $i_mn > 0 ? $mon[$i_mn-1] : trans('models.perf-theatres-default');
+                $r .= $this->getMenu($nm, $i_mn, $t_name, 'by_month', $mon);
 
-//            if ($path == 'posters') {
-//                $t_link = $i_th > 0 ? '?by_theatre=' . $i_th : '#';
-//                $t_name = $i_th > 0 ? Theatre::findOrFail($i_th)->name : trans('models.perf-theatres-default');
-//
-//                $r .= $this->getMenu($nm, $t_link, $t_name, 'by_theatre', Theatre::all());
-//            }
+            }
 
             // Add 'Clear' button
             $r .= $cl;
@@ -149,9 +146,12 @@ class ViewServiceProvider extends ServiceProvider
             ";
 
         $p .= '<li><a href=""';
-        foreach ($collection as $v) {
-            $p .= "<li><a href='/$url$v->id'>$v->name</a></li>";
-        }
+        if (is_array($collection))
+            for ($i = 1 ; $i < 13 ; $i++)
+                $p .= "<li><a href='/$url$i'>".$collection[$i-1]."</a></li>";
+        else
+            foreach ($collection as $v)
+                $p .= "<li><a href='/$url$v->id'>$v->name</a></li>";
 
         $p .= '</ul></div>';
         return $p;
