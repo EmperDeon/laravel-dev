@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -56,6 +57,9 @@ class AuthController extends Controller
             if (! $token = JWTAuth::fromUser($user)) {
                 return response()->json(['error' => 'invalid_credentials'], 401);
             }
+
+            JWTAuth::setToken($token);
+
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'could_not_create_token', 'message' => $e->getMessage()], 500);
@@ -93,9 +97,10 @@ class AuthController extends Controller
      */
     public function check (Request $request)
     {
+        Config::set('auth.providers.users.model', User::class);
+
         try {
             $user = JWTAuth::parseToken()->authenticate();
-
             return response()->json([], 200);
 
 
@@ -119,12 +124,13 @@ class AuthController extends Controller
      */
     public function roles(Request $request)
     {
+        Config::set('auth.providers.users.model', User::class);
         try {
             $user = JWTAuth::parseToken()->authenticate();
 
             $r = [];
-            foreach($user->roles as $v)
-                $r[] = $v->role;
+            foreach($user->perms as $v)
+                $r[] = $v->perm;
 
             return response()->json(['roles' => $r], 200);
 

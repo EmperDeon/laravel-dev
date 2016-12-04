@@ -27,8 +27,8 @@ class User extends Authenticatable
         'hash', 'remember_token',
     ];
 
-    public function roles() {
-        return $this->hasMany('App\U_Role');
+    public function perms() {
+        return $this->belongsToMany('App\U_Perm', 'user__perms', 'user_id', 'perm_id');
     }
 
     /**
@@ -37,9 +37,9 @@ class User extends Authenticatable
      * @param $s
      * @return bool
      */
-    public function hasRole($s) {
-        foreach($this->roles->all() as $v){
-            if($v->role == $s)
+    public function hasPerm($s) {
+        foreach($this->perms->all() as $v){
+            if($v->perm == $s)
                 return true;
         }
 

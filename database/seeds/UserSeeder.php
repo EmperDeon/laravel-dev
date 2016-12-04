@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'email' =>  'admin',
+            'login' =>  'admin',
             'password'  =>  Hash::make('password'),
 
             'fio'   =>  'Барыкин Илья Игоревич',
@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'email' =>  'th1_admin',
+            'login' =>  'th1_admin',
             'password'  =>  Hash::make('password'),
 
             'fio'   =>  'THEATRE 1 ADMIN FIO',
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'email' =>  'th1_user1',
+            'login' =>  'th1_user1',
             'password'  =>  Hash::make('password'),
 
             'fio'   =>  'THEATRE 1 USER 1 FIO',
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'email' =>  'th1_user2',
+            'login' =>  'th1_user2',
             'password'  =>  Hash::make('password'),
 
             'fio'   =>  'THEATRE 1 USER 2 FIO',

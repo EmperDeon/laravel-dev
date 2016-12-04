@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class U_Role extends Model
+class U_Perm extends Model
 {
     protected $fillable = ['user_id', 'role'];
 

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TheatreSeeder::class);
 
         $this->call(UserSeeder::class);
-        $this->call(U_RolesSeeder::class);
+        $this->call(U_PerfsSeeder::class);
 
         $this->call(ActorSeeder::class);
         $this->call(P_TypeSeeder::class);
