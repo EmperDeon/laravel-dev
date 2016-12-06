@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
+use Illuminate\Support\Facades\Config;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -15,15 +17,16 @@ class CheckRole
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
-     * @param  $role
+     * @param  $perm
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, $perm)
     {
+        Config::set('auth.providers.users.model', User::class);
         try {
             $user = JWTAuth::parseToken()->authenticate();
 
-            if ($user->hasRole($role)) {
+            if ($user->hasPerm($perm)) {
                 return $next($request);
 
             } else {

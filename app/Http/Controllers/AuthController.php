@@ -101,7 +101,7 @@ class AuthController extends Controller
 
         try {
             $user = JWTAuth::parseToken()->authenticate();
-            return response()->json([], 200);
+            return response()->json(['response' => 'ok'], 200);
 
 
         } catch (TokenExpiredException $e) {

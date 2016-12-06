@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -36,7 +37,7 @@ class TheatreController extends Controller
      * @return string
      */
     public function all () {
-        return Theatre::with(['halls'])->get();
+        return response()->json(['response' => Theatre::with(['halls'])->get()]);
     }
 
     /**
@@ -47,29 +48,72 @@ class TheatreController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json();
+        if (Theatre::where('name', $request->get('name'))->count() > 0)
+            return response()->json(['error' => 'entry_exists']);
+
+        Theatre::create($this->getOnly($request, ['name', 'desc', 'img', 'address', 'tel_num']));
+        return response()->json(['response' => 'successful']);
     }
 
     /**
      * Update the specified element/
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        return response()->json();
+        if (!$request->has('id')) {
+            return response()->json(['error' => 'no_id']);
+        }
+
+        try {
+            $m = Theatre::findOrFail($request->get('id'));
+            $m->update($this->getOnly($request, ['name', 'desc', 'img', 'address', 'tel_num']));
+            return response()->json(['response' => 'successful']);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'id_not_exists']);
+
+        }
     }
 
     /**
      * Remove the specified element.
      *
-     * @param  int  $id
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        return response()->json();
+        if (!$request->has('id')) {
+            return response()->json(['error' => 'no_id']);
+        }
+
+        try {
+            $m = Theatre::findOrFail($request->get('id'));
+//            $m->delete();
+            return response()->json(['response' => 'successful']);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'id_not_exists']);
+
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param array $n
+     * @return array
+     */
+    public function getOnly(Request $request, array $n):array
+    {
+        $r = [];
+
+        foreach($n as $v)
+            if($request->has($v))
+                $r[$v] = $request->get($v);
+
+        return $r;
     }
 }
