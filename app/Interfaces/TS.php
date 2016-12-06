@@ -14,6 +14,9 @@ use Illuminate\Database\Seeder;
 abstract class TS extends Seeder
 {
     static public function id($i) {
-        return ($i - 1) * 10 + 4;
+        if (env('APP_DEBUG', false) == false)
+            return ($i - 1) * 10 + 4;
+        else
+            return $i;
     }
 }
