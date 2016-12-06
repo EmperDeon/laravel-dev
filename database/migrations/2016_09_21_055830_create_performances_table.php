@@ -18,7 +18,12 @@ class CreatePerformancesTable extends Migration
 
             $table->string('name');
             $table->string('author');
-            $table->string('genre');
+            $table->integer('type_id')->unsigned()->nullable();
+
+            $table->foreign('type_id')
+                ->references('id')
+                ->on('p__types')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });
