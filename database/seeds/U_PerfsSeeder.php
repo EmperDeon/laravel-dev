@@ -1,18 +1,23 @@
 <?php
 
 use App\U_Perm;
-use Illuminate\Database\Seeder;
+use App\Interfaces\TS;
 use Illuminate\Support\Facades\DB;
 
-class U_PerfsSeeder extends Seeder
+class U_PerfsSeeder extends TS
 {
     /**
      *
+     */
+
+
+    /**
+     * Short function to add permissions to user
      *
      */
     public function add($u, $a) {
         foreach($a as $v)
-            DB::table('user__perms')->insert(['user_id' => $u, 'perm_id' => $v]);
+            DB::table('user__perms')->insert(['user_id' => $u, 'perm_id' => TS::id($v)]);
     }
     /**
      * Run the database seeds.
@@ -41,12 +46,12 @@ class U_PerfsSeeder extends Seeder
         U_Perm::create(['perm' => 'create_actors']);
         U_Perm::create(['perm' => 'create_user']); //17
 
-        $this->add(1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]); // Admin
+        $this->add( TS::id(1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]); // Admin
 
-        $this->add(2, [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]); // Theatre admin
+        $this->add( TS::id(2), [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]); // Theatre admin
 
-        $this->add(3, [1, 2, 4, 6, 7, 8, 9, 10, 13, 14, 15, 16]); // Theatre users
-        $this->add(4, [1, 3, 7, 8, 9, 10, 13, 14, 15, 16]);
+        $this->add( TS::id(3), [1, 2, 4, 6, 7, 8, 9, 10, 13, 14, 15, 16]); // Theatre users
+        $this->add( TS::id(4), [1, 3, 7, 8, 9, 10, 13, 14, 15, 16]);
 
 //        U_Perm::create(['user_id' => $u, 'role' => 'create_theatre']);
 //        U_Perm::create(['user_id' => $u, 'role' => 'edit_theatre']);

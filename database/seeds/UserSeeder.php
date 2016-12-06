@@ -1,10 +1,10 @@
 <?php
 
 use App\User;
-use Illuminate\Database\Seeder;
+use App\Interfaces\TS;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class UserSeeder extends TS
 {
     /**
      * Run the database seeds.

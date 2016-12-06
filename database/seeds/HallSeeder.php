@@ -1,9 +1,9 @@
 <?php
 
 use App\T_Hall;
-use Illuminate\Database\Seeder;
+use App\Interfaces\TS;
 
-class HallSeeder extends Seeder
+class HallSeeder extends TS
 {
     /**
      * Run the database seeds.
@@ -12,14 +12,12 @@ class HallSeeder extends Seeder
      */
     public function run()
     {
-        T_Hall::create(['theatre_id' => 1, 'name' => 'Hall name 1', 'json' => '{}']);
-        T_Hall::create(['theatre_id' => 1, 'name' => 'Hall name 2', 'json' => '{}']);
-        T_Hall::create(['theatre_id' => 1, 'name' => 'Hall name 3', 'json' => '{}']);
-
-
-        T_Hall::create(['theatre_id' => 2, 'name' => 'Hall name 1', 'json' => '{}']);
-        T_Hall::create(['theatre_id' => 2, 'name' => 'Hall name 2', 'json' => '{}']);
-        T_Hall::create(['theatre_id' => 2, 'name' => 'Hall name 3', 'json' => '{}']);
-        T_Hall::create(['theatre_id' => 2, 'name' => 'Hall name 4', 'json' => '{}']);
+        T_Hall::create(['theatre_id' => TS::id(1), 'name' => 'Hall name 1', 'json' => '{}']);
+        T_Hall::create(['theatre_id' => TS::id(1), 'name' => 'Hall name 2', 'json' => '{}']);
+        T_Hall::create(['theatre_id' => TS::id(1), 'name' => 'Hall name 3', 'json' => '{}']);
+        T_Hall::create(['theatre_id' => TS::id(2), 'name' => 'Hall name 1', 'json' => '{}']);
+        T_Hall::create(['theatre_id' => TS::id(2), 'name' => 'Hall name 2', 'json' => '{}']);
+        T_Hall::create(['theatre_id' => TS::id(2), 'name' => 'Hall name 3', 'json' => '{}']);
+        T_Hall::create(['theatre_id' => TS::id(2), 'name' => 'Hall name 4', 'json' => '{}']);
     }
 }

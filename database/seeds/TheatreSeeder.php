@@ -1,9 +1,9 @@
 <?php
 
 use App\Theatre;
-use Illuminate\Database\Seeder;
+use App\Interfaces\TS;
 
-class TheatreSeeder extends Seeder
+class TheatreSeeder extends TS
 {
     /**
      * Run the database seeds.
