@@ -73,7 +73,7 @@ class ViewServiceProvider extends ServiceProvider
 
             if ($path == 'posters') {
                 $mon = trans('global.months');
-                $t_name = $i_mn > 0 ? $mon[$i_mn-1] : trans('models.perf-theatres-default');
+                $t_name = $i_mn > 0 ? $mon[$i_mn-1] : trans('models.perf-months-default');
                 $r .= $this->getMenu($nm, $i_mn, $t_name, 'by_month', $mon);
 
             }
