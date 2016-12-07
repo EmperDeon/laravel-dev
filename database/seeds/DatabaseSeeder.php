@@ -13,8 +13,12 @@ class DatabaseSeeder extends TS
     {
         $this->call(TheatreSeeder::class);
 
+        // API
         $this->call(UserSeeder::class);
         $this->call(U_PerfsSeeder::class);
+
+        // WEB-End
+        $this->call(WebUserSeeder::class);
 
         $this->call(ActorSeeder::class);
         $this->call(P_TypeSeeder::class);

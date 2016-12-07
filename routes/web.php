@@ -11,9 +11,16 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () { return view('index'); });
 
+// TODO: Move to modal
+Route::get('/register', function () { return view('auth.register'); });
+
 Route::get('/auth/logout', 'AuthController@logout');
+Route::post('/auth/login', 'Auth\LoginController@login');
+Route::post('/auth/register', 'Auth\RegisterController@register');
 
 Route::get('/theatres/', 'TheatreController@index');
 Route::get('/theatres/{id}', 'TheatreController@show');
@@ -28,4 +35,4 @@ Route::get('/performances/', 'PerformanceController@index');
 Route::get('/performances/{id}', 'PerformanceController@show');
 
 
-Auth::routes();
+//Auth::routes();

@@ -97,7 +97,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         view()->composer('part.nav-bar', function ($view) {
             $view->with('p_types', P_Type::all());
-            $view->with('theatres', Theatre::all());
+//            $view->with('theatres', Theatre::all());
         });
 
         view()->composer('part.perf-types', function ($view) {
