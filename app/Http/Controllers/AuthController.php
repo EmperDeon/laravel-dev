@@ -18,19 +18,6 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthController extends Controller
 {
-
-    /**
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function logout () {
-        Auth::logout();
-
-        return redirect('/');
-
-    }
-
     /**
      * Get token for login/password
      *

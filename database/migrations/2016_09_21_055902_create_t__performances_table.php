@@ -34,6 +34,14 @@ class CreateTPerformancesTable extends Migration
                 ->on('theatres')
                 ->onDelete('cascade');
         });
+
+        Schema::create('perfs__actors', function (Blueprint $table) {
+            $table->integer('t__perf_id')->unsigned();
+            $table->integer('actor_id')->unsigned();
+
+            $table->foreign('t__perf_id')->references('id')->on('t__performances')->onDelete('cascade');
+            $table->foreign('actor_id')->references('id')->on('actors')->onDelete('cascade');
+        });
     }
 
     /**
@@ -43,6 +51,7 @@ class CreateTPerformancesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('perfs__actors');
         Schema::dropIfExists('t__performances');
     }
 }

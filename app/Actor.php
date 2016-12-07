@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Actor extends Model
 {
-    protected $fillable = ['name', 'bio', 'img'];
+    protected $fillable = ['name', 'theatre_id', 'bio', 'img'];
 
-    public function scopeUpdates ($stamp) {
-        return $this->where('updatet_at', '>', $stamp)->get();
+    public function theatre () {
+        return $this->belongsTo('App\Theatre', 'theatre_id', 'id');
     }
 }

@@ -36,8 +36,4 @@ class T_Performance extends Model
     public function posters () {
         return $this->hasMany('App\Poster', 't_perf_id');
     }
-
-    public function comments () {
-        return $this->hasMany('App\Comment', 't_perf_id');
-    }
 }

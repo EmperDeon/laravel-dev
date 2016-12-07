@@ -4,13 +4,8 @@ use App\U_Perm;
 use App\Interfaces\TS;
 use Illuminate\Support\Facades\DB;
 
-class U_PerfsSeeder extends TS
+class U_PermsSeeder extends TS
 {
-    /**
-     *
-     */
-
-
     /**
      * Short function to add permissions to user
      *

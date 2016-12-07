@@ -41,7 +41,7 @@ Route::any('/t_perfs/', 'T_PerformanceController@all');
 Route::any('/theatres/', 'TheatreController@all'); // Get list of theatres and their halls
 Route::any('/theatres/create', 'TheatreController@store')->middleware('role:create_theatre');
 Route::any('/theatres/edit', 'TheatreController@update')->middleware('role:edit_theatre');
-Route::any('/theatres/delete', 'TheatreController@delete')->middleware('role:edit_theatre');
+Route::any('/theatres/delete', 'TheatreController@delete')->middleware('role:delete_theatre');
 
 Route::any('/users/', 'UserController@all');
 
