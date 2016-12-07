@@ -13,8 +13,6 @@
 
 Route::get('/', function () { return view('index'); });
 
-Route::get('/auth/logout', 'AuthController@logout');
-
 Route::get('/theatres/', 'TheatreController@index');
 Route::get('/theatres/{id}', 'TheatreController@show');
 
@@ -27,5 +25,3 @@ Route::get('/posters/{id}', 'PerformanceController@show');
 Route::get('/performances/', 'PerformanceController@index');
 Route::get('/performances/{id}', 'PerformanceController@show');
 
-
-Auth::routes();
