@@ -60,16 +60,7 @@ class ViewServiceProvider extends ServiceProvider
             $nm = rtrim($nm, '?');
             $nm = rtrim($nm, '&');
 
-
-            // Add 'Type' menu
-            $t_name = $i_tp > 0 ? P_Type::findOrFail($i_tp)->name : trans('models.perf-types-default');
-            $r = $this->getMenu($nm, $i_tp, $t_name, 'type', P_Type::all());
-
-
-            // Add 'Theatre' menu
-            $t_name = $i_th > 0 ? Theatre::findOrFail($i_th)->name : trans('models.perf-theatres-default');
-            $r .= $this->getMenu($nm, $i_th, $t_name, 'theatre', Theatre::all());
-
+            $r = '';
 
             if ($path == 'posters') {
                 $mon = trans('global.months');
@@ -78,8 +69,28 @@ class ViewServiceProvider extends ServiceProvider
 
             }
 
-            // Add 'Clear' button
-            $r .= $cl;
+
+            // Add 'Type' menu
+            $t_name = $i_tp > 0 ? P_Type::findOrFail($i_tp)->name : trans('models.perf-types-default');
+            $r .= $this->getMenu($nm, $i_tp, $t_name, 'type', P_Type::all());
+
+
+            // Add 'More' and 'Clear' buttons
+            $r .= '<button class="btn btn-primary" data-toggle="collapse" data-target="#perf-types" style="margin-right:10px">' . trans('models.perf-more') . '</button>';
+            $r .= $cl . '</div>';
+
+            // Start 'More' menu
+            $r .= '<div class="perf-types"><div class="collapse" id="perf-types">';
+
+
+            // Add 'Theatre' menu
+            $t_name = $i_th > 0 ? Theatre::findOrFail($i_th)->name : trans('models.perf-theatres-default');
+            $r .= $this->getMenu($nm, $i_th, $t_name, 'theatre', Theatre::all());
+
+            // TODO: Add sorts by 'day of the week' and 'name of the performance' !!!today!!!
+
+            // Close 'More' menu
+            $r .= '</div></div>';
 
             return $r;
         } else {
@@ -143,7 +154,7 @@ class ViewServiceProvider extends ServiceProvider
             <ul class='dropdown-menu' role='menu'>            
             ";
 
-        $p .= '<li><a href="/'. rtrim($url, '?') . '" >'. trans('models.perf-' . $t_type . 's-none') . '</a>';
+        $p .= '<li><a href="/'. rtrim($url, '?') . '" >'. trans('models.perf-none') . '</a>';
         $url .= 'by_' . $t_type . '=';
 
         if (is_array($collection))

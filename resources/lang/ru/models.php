@@ -5,8 +5,7 @@ return [
     'perf-theatres-default' => 'Театр',
     'perf-months-default' => 'Месяц',
 
-    'perf-types-none' => 'Очистить',
-    'perf-theatres-none' => 'Очистить',
-    'perf-months-none' => 'Очистить',
+    'perf-none' => 'Очистить',
+    'perf-more' => 'Больше параметров',
 
     ];

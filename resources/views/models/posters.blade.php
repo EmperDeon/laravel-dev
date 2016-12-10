@@ -1,7 +1,8 @@
 @extends('template.index')
 
 @section('content')
-    <h2>Афиша @include('part.perf-types')</h2>
+    <h2>Афиша</h2>
+    @include('part.perf-types')
 
     <table class="posters-table">
     @forelse($posters as $poster)

@@ -9,7 +9,7 @@
             @foreach ($posters as $poster)
                 <div class="poster-small col-sm-6 col-md-3 col-lg-3">
                     <div class="date">{{ Date::parse($poster->date)->format('d F Y, l G:i') }}</div>
-                    <a href="/perfs/{{ $poster->id }}">{{ $poster->t_perf->perf->name }}</a><br />
+                    <a href="/performances/{{ $poster->id }}">{{ $poster->t_perf->perf->name }}</a><br />
                     <a href="/theatres/{{ $poster->t_perf->theatre_id }}" style="font-size: 10pt">{{ $poster->t_perf->theatre->name }}</a><br />
                     <a href="#" style="font-size: 10pt">{{ $poster->hall->name }}</a>
                 </div>

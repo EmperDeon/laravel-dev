@@ -1,2 +1,6 @@
-<span class="perf-types">{!! $perf_types !!}</span>
+<div class="perf-types">
+
+    {!! $perf_types !!}
+
+</div>
 
