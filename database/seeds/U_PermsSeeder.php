@@ -4,13 +4,8 @@ use App\U_Perm;
 use App\Interfaces\TS;
 use Illuminate\Support\Facades\DB;
 
-class U_PerfsSeeder extends TS
+class U_PermsSeeder extends TS
 {
-    /**
-     *
-     */
-
-
     /**
      * Short function to add permissions to user
      *
@@ -19,6 +14,7 @@ class U_PerfsSeeder extends TS
         foreach($a as $v)
             DB::table('user__perms')->insert(['user_id' => $u, 'perm_id' => TS::id($v)]);
     }
+
     /**
      * Run the database seeds.
      *

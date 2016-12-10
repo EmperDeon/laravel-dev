@@ -15,11 +15,12 @@ class DatabaseSeeder extends TS
 
         // API
         $this->call(UserSeeder::class);
-        $this->call(U_PerfsSeeder::class);
+        $this->call(U_PermsSeeder::class);
 
         // WEB-End
         $this->call(WebUserSeeder::class);
 
+        // Global
         $this->call(ActorSeeder::class);
         $this->call(P_TypeSeeder::class);
         $this->call(PerformanceSeeder::class);
