@@ -6,6 +6,7 @@ use App\P_Type;
 use App\Poster;
 use App\T_Performance;
 use App\Theatre;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 
@@ -41,7 +42,6 @@ class ViewServiceProvider extends ServiceProvider
 
                 $i_tp = $t->perf->type_id;
                 $i_th = $t->theatre_id;
-                // TODO: Add months
 
             } else { // If model's index
                 $nm = $path;
@@ -63,18 +63,18 @@ class ViewServiceProvider extends ServiceProvider
 
             // Add 'Type' menu
             $t_name = $i_tp > 0 ? P_Type::findOrFail($i_tp)->name : trans('models.perf-types-default');
-            $r = $this->getMenu($nm, $i_tp, $t_name, 'by_type', P_Type::all());
+            $r = $this->getMenu($nm, $i_tp, $t_name, 'type', P_Type::all());
 
 
             // Add 'Theatre' menu
             $t_name = $i_th > 0 ? Theatre::findOrFail($i_th)->name : trans('models.perf-theatres-default');
-            $r .= $this->getMenu($nm, $i_th, $t_name, 'by_theatre', Theatre::all());
+            $r .= $this->getMenu($nm, $i_th, $t_name, 'theatre', Theatre::all());
 
 
             if ($path == 'posters') {
                 $mon = trans('global.months');
                 $t_name = $i_mn > 0 ? $mon[$i_mn-1] : trans('models.perf-months-default');
-                $r .= $this->getMenu($nm, $i_mn, $t_name, 'by_month', $mon);
+                $r .= $this->getMenu($nm, $i_mn, $t_name, 'month', $mon);
 
             }
 
@@ -128,7 +128,7 @@ class ViewServiceProvider extends ServiceProvider
     public function getMenu($url, $t_id, $t_name, $t_type, $collection):string
     {
         // Replace old id with new
-        $url = preg_replace("/$t_type=\\d+&*/", '', $url);
+        $url = preg_replace("/by_$t_type=\\d+&*/", '', $url);
 
         if ($url == 'performances' || $url == 'posters')
             $url .= '?';
@@ -136,16 +136,16 @@ class ViewServiceProvider extends ServiceProvider
         if ($url[strlen($url) - 1] != '?')
             $url .= '&';
 
-        $url .= $t_type . '=';
-
         // Return menu
         $p = "<div class='btn-group dropdown' style='margin-right: 10px;'>  
             <a href='/$url$t_id' class='btn btn-primary'  data-hover='dropdown' >$t_name</a>
             <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button>
-            <ul class='dropdown-menu' role='menu'>
+            <ul class='dropdown-menu' role='menu'>            
             ";
 
-        $p .= '<li><a href=""';
+        $p .= '<li><a href="/'. rtrim($url, '?') . '" >'. trans('models.perf-' . $t_type . 's-none') . '</a>';
+        $url .= 'by_' . $t_type . '=';
+
         if (is_array($collection))
             for ($i = 1 ; $i < 13 ; $i++)
                 $p .= "<li><a href='/$url$i'>".$collection[$i-1]."</a></li>";

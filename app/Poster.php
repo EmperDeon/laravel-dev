@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Poster extends Model
@@ -34,6 +35,13 @@ class Poster extends Model
         if ($month)
             return $query->whereMonth('date', $month);
         return $query;
+    }
+
+    public function scopeClosest ($query, $count) {
+        if ($count)
+            return $query->where('date', '>', Carbon::today())->limit($count);
+        else
+            return $query;
     }
 
     public function hall () {

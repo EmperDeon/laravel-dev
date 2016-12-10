@@ -1,24 +1,21 @@
-TODO: Proceed web-part [authorization *do i really need it ?* ]
-
-TODO: Add language and theme support
-
-TODO: Refactor
-TODO:  Move some values to variables from app.scss to _variables.scss
-TODO:  Move exceptions from api auth
-
-TODO: Nav-bar
-fixme: *wont be fixed* If screen less then 768 and not mobile toggle doesn't work ok
-
-TODO: Edit readme.md
-
-TODO: Separate roles and permissions
-
-TODO: Main page !Important [maybe today]
-
 TODO [Curse]
 TODO:  Sort by day ow the week
 TODO:  Sort by name of performance
 TODO:  Add posters to performance page
 TODO:  Fix links to actors
 
+
+TODO: Later
+TODO:  Edit readme.md
+
+TODO:  Refactor
+TODO:   Move some values to variables from app.scss to _variables.scss
+TODO:   Move exceptions from api auth
+
+TODO:  Add language and theme support
+TODO:  Proceed web-part [authorization *do i really need it ?* ]
+
+
+TODO: Nav-bar
+fixme: *wont be fixed* If screen less then 768 and not mobile toggle doesn't work ok
 

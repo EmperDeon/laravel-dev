@@ -25,9 +25,6 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="/articles/" class="dropdown-toggle">@lang('global.news')</a>
-                </li>
-                <li class="dropdown">
                     <a href="/theatres/" data-hover="dropdown" class="dropdown-toggle">@lang('global.theatres') <b class="nav-caret"></b></a>
                     <ul role="menu" class="dropdown-menu">
                         @foreach($theatres as $theatre)
