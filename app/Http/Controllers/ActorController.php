@@ -10,22 +10,22 @@ class ActorController extends Controller
     /**
      * Get all elements for web.
      *
-     * @return \Illuminate\View\View
+     * @return string
      */
     public function index()
     {
-        return view('models.theatres')->with(['theatres' => Actor::all()]);
+        return 'Sorry, nothing here yet';
     }
 
     /**
      * Display the specified element.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
-        return view('models.theatre')->with(['theatre' => Actor::findOrFail($id)]);
+        return view('models.actor')->with(['actor' => Actor::findOrFail($id)]);
     }
 
     /**
@@ -33,7 +33,8 @@ class ActorController extends Controller
      *
      * @return string
      */
-    public function all () {
+    public function all()
+    {
         return response()->json(['response' => Actor::all()]);
     }
 
@@ -53,8 +54,8 @@ class ActorController extends Controller
     /**
      * Update the specified element/
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -65,7 +66,7 @@ class ActorController extends Controller
     /**
      * Remove the specified element.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

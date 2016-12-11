@@ -20,7 +20,7 @@ class ArticleController extends Controller
     /**
      * Display the specified element.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
@@ -33,7 +33,8 @@ class ArticleController extends Controller
      *
      * @return string
      */
-    public function all () {
+    public function all()
+    {
         return Article::all();
     }
 
@@ -51,8 +52,8 @@ class ArticleController extends Controller
     /**
      * Update the specified element/
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -63,7 +64,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified element.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

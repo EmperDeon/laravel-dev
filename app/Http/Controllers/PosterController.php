@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Poster;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PosterController extends Controller
 {
@@ -34,7 +33,8 @@ class PosterController extends Controller
      *
      * @return string
      */
-    public function all () {
+    public function all()
+    {
         return Poster::with(['halls'])->get();
     }
 
@@ -52,8 +52,8 @@ class PosterController extends Controller
     /**
      * Update the specified element/
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -64,7 +64,7 @@ class PosterController extends Controller
     /**
      * Remove the specified element.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

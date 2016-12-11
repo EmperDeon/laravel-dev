@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -27,7 +27,8 @@ class User extends Authenticatable
         'hash', 'remember_token',
     ];
 
-    public function perms() {
+    public function perms()
+    {
         return $this->belongsToMany('App\U_Perm', 'user__perms', 'user_id', 'perm_id');
     }
 
@@ -37,9 +38,10 @@ class User extends Authenticatable
      * @param $s
      * @return bool
      */
-    public function hasPerm($s) {
-        foreach($this->perms->all() as $v){
-            if($v->perm == $s)
+    public function hasPerm($s)
+    {
+        foreach ($this->perms->all() as $v) {
+            if ($v->perm == $s)
                 return true;
         }
 

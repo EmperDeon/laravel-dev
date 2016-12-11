@@ -15,7 +15,7 @@
                 {{ $poster->t_perf->perf->name }}
             </a><br />
             <a href="/theatres/{{ $poster->t_perf->theatre_id }}" style="font-size: 10pt">{{ $poster->t_perf->theatre->name }}</a>
-            <a href="#" style="font-size: 8pt">{{ $poster->hall->name }}</a>
+            <a href="#" style="font-size: 9pt">{{ $poster->hall->name }}</a>
 
 
             </td>

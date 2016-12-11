@@ -8,11 +8,13 @@ class Performance extends Model
 {
     protected $fillable = ['name', 'author', 'type_id'];
 
-    public function type () {
+    public function type()
+    {
         return $this->belongsTo('App\P_Type');
     }
 
-    public function t_perfs () {
+    public function t_perfs()
+    {
         return $this->hasMany('App\T_Performance', 'perf_id');
     }
 }
