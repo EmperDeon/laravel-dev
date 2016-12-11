@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Poster;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PosterController extends Controller
 {
@@ -17,11 +18,13 @@ class PosterController extends Controller
     {
 
         $p = Poster
-            ::by_type($request->get('by_type'))
+            ::by_month($request->get('by_month'))
+            ->by_type($request->get('by_type'))
             ->by_theatre($request->get('by_theatre'))
-            ->by_month($request->get('by_month'))
+            ->by_name($request->get('by_name'))
+            ->by_date($request->get('by_day'))
+            ->by_time($request->get('by_time'))
             ->get();
-
 
         return view('models.posters')->with(['posters' => $p]);
     }

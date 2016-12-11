@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\P_Type;
+use App\Performance;
 use App\Poster;
 use App\T_Performance;
 use App\Theatre;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
+use Jenssegers\Date\Date;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -22,72 +24,70 @@ class ViewServiceProvider extends ServiceProvider
     {
         $path = Request::path();
         if (str_contains($path, 'performances') || str_contains($path, 'posters')) {
+            $a = [ // Main array
+                'month' =>    0,
+                'type' =>     0,
+                'theatre' =>  0,
+                'name' =>     0,
+                'day' =>      0,
+                'time'=>      0,
+            ];
 
-            $i_tp = $i_th = $i_mn = 0;
-
-            if (Request::has('by_type')
-                || Request::has('by_theatre')
-                || Request::has('by_month')
-            ) { // If has parameters [performances?by_type=1&...]
+            if ( $this->hasOnePar($a) ) { // If has parameters [performances?by_type=1&...]
                 $nm = $path;
 
-                if ($t = Request::get('by_type')) $i_tp = $t; // Change value if not null
-                if ($t = Request::get('by_theatre')) $i_th = $t;
-                if ($t = Request::get('by_month')) $i_mn = $t;
+                foreach ($a as $k => $v)
+                    if ($t = Request::get('by_' . $k)) $a[$k] = $t; // Change value if not null
 
             } else if (strpos($path, '/')) { // If it's performance [performance/1]
                 $nm = substr($path, 0, strpos($path, '/'));
 
                 $t = T_Performance::findOrFail(substr($path, strpos($path, '/') + 1));
 
-                $i_tp = $t->perf->type_id;
-                $i_th = $t->theatre_id;
+                $a['type'] = $t->perf->type_id;
+                $a['theatre'] = $t->theatre_id;
 
             } else { // If model's index
                 $nm = $path;
             }
 
             // Create clear button. Here because $nm is not changed
-            $cl = "<a href='/$nm' class='btn btn-primary'  data-hover='dropdown' >" . trans('global.clear') . "</a>";
+            $cl = "<a href='/$nm' class='btn btn-primary'>" . trans('global.clear') . "</a>";
 
 
             // Reconstruct request url
             $nm .= '?';
-            $nm .= $i_tp > 0 ? 'by_type=' . $i_tp . '&' : '';
-            $nm .= $i_th > 0 ? 'by_theatre=' . $i_th . '&' : '';
-            $nm .= $i_mn > 0 ? 'by_month=' . $i_mn : '';
+
+            foreach ($a as $k => $v)
+                $nm .= $v > 0 ? "by_$k=$v&" : '';
 
             $nm = rtrim($nm, '?');
             $nm = rtrim($nm, '&');
 
             $r = '';
 
+            // Add 'Month' menu
             if ($path == 'posters') {
-                $mon = trans('global.months');
-                $t_name = $i_mn > 0 ? $mon[$i_mn-1] : trans('models.perf-months-default');
-                $r .= $this->getMenu($nm, $i_mn, $t_name, 'month', $mon);
-
+                $r .= $this->getMenu($nm, $a, 'month');
             }
 
-
             // Add 'Type' menu
-            $t_name = $i_tp > 0 ? P_Type::findOrFail($i_tp)->name : trans('models.perf-types-default');
-            $r .= $this->getMenu($nm, $i_tp, $t_name, 'type', P_Type::all());
+            $r .= $this->getMenu($nm, $a, 'type');
 
 
             // Add 'More' and 'Clear' buttons
-            $r .= '<button class="btn btn-primary" data-toggle="collapse" data-target="#perf-types" style="margin-right:10px">' . trans('models.perf-more') . '</button>';
+            $r .= '<a  href="#" class="btn btn-primary" data-toggle="collapse" data-target="#perf-types" style="margin-right:10px">' . trans('models.perf-more') . '</a>';
             $r .= $cl . '</div>';
 
-            // Start 'More' menu
-            $r .= '<div class="perf-types"><div class="collapse" id="perf-types">';
 
+            // Start 'More' menu
+            $b = ['theatre'=>0, 'name'=>0, 'day'=>0, 'time'=>0];
+            $open = $this->hasOnePar($b);
+            $r .= '<div class="perf-types"><div class="collapse'. ($open ? ' open in' : '') .'" id="perf-types">';
 
             // Add 'Theatre' menu
-            $t_name = $i_th > 0 ? Theatre::findOrFail($i_th)->name : trans('models.perf-theatres-default');
-            $r .= $this->getMenu($nm, $i_th, $t_name, 'theatre', Theatre::all());
-
-            // TODO: Add sorts by 'day of the week' and 'name of the performance' !!!today!!!
+            foreach ($b as $k => $v)
+                $r .= $this->getMenu($nm, $a, $k);
 
             // Close 'More' menu
             $r .= '</div></div>';
@@ -129,15 +129,16 @@ class ViewServiceProvider extends ServiceProvider
 
     /**
      * @param $url
-     * @param $t_id
-     * @param $t_name
+     * @param $a
      * @param $t_type
-     * @param $collection
      * @return string
-     * @internal param $t_link
      */
-    public function getMenu($url, $t_id, $t_name, $t_type, $collection):string
+    public function getMenu($url, $a, $t_type):string
     {
+        $t_id = $a[$t_type];
+        $t_name = $this->getDefName($a, $t_type);
+        $collection = $this->getCont($t_type);
+
         // Replace old id with new
         $url = preg_replace("/by_$t_type=\\d+&*/", '', $url);
 
@@ -158,7 +159,7 @@ class ViewServiceProvider extends ServiceProvider
         $url .= 'by_' . $t_type . '=';
 
         if (is_array($collection))
-            for ($i = 1 ; $i < 13 ; $i++)
+            for ($i = 1 ; $i < count($collection)+1 ; $i++)
                 $p .= "<li><a href='/$url$i'>".$collection[$i-1]."</a></li>";
         else
             foreach ($collection as $v)
@@ -166,5 +167,77 @@ class ViewServiceProvider extends ServiceProvider
 
         $p .= '</ul></div>';
         return $p;
+    }
+
+    private function hasOnePar(array $a): bool
+    {
+        $r = false;
+        foreach($a as $k => $v)
+            $r = $r || Request::has('by_' . $k);
+
+        return $r;
+    }
+
+    /**
+     * @param $a
+     * @param $n
+     * @return string
+     */
+    public function getDefName($a, $n):string
+    {
+        $i = $a[$n];
+        if ($i > 0) {
+            switch ($n) {
+                case 'month': return trans('global.months')[$i-1];
+                case 'type': return P_Type::findOrFail($i)->name;
+
+                case 'theatre': return Theatre::findOrFail($i)->name;
+                case 'name': return Performance::findOrFail($i)->name;
+                case 'day': return trans('global.days')[$i-1];
+                case 'time': return $this->getTimeCont()[$i-1];
+
+                default:  return 'ERROR';
+            }
+        } else {
+            return trans('models.perf-'. $n .'-default');
+        }
+    }
+
+    /**
+     * Get Array or Container for sort type
+     *
+     * @param $n
+     * @return mixed
+     */
+    private function getCont($n)
+    {
+        switch ($n) {
+            case 'month':   return trans('global.months');
+            case 'type':    return P_Type::all();
+
+            case 'theatre': return Theatre::all();
+            case 'name':    return Performance::all();
+            case 'day':     return trans('global.days');
+            case 'time':    return $this->getTimeCont();
+
+            default: return [];
+        }
+    }
+
+
+    /**
+     * Get all possible poster times for 'Time' sort
+     *
+     * @return array
+     */
+    private function getTimeCont()
+    {
+        $r = [];
+        $a = DB::select('select distinct DATE_FORMAT(date, \'%H:%i\') AS \'time\' FROM posters');
+
+        foreach($a as $v)
+            $r[] = $v->time;
+
+        return $r;
     }
 }

@@ -19,9 +19,13 @@ class T_Performance extends Model
 
     public function scopeBy_theatre ($query, $id) {
         if ($id)
-            return $query->whereHas('perf', function ($q) use ($id) {
-               $q->where('theatre_id', $id);
-            });
+            return $query->where('theatre_id', $id);
+        return $query;
+    }
+
+    public function scopeBy_name ($query, $id) {
+        if ($id)
+            return $query->where('perf_id', $id);
         return $query;
     }
 
