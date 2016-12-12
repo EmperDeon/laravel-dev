@@ -19,6 +19,11 @@ Route::any('/auth/ref', 'AuthController@refresh'); // Refresh token
 Route::any('/auth/check', 'AuthController@check'); // Check token for errors
 Route::any('/auth/roles', 'AuthController@roles'); // Get all roles of current user
 
+
+Route::any('/updates/{stamp}', 'UtilsController@updates'); // All rows that updated since $stamp
+
+Route::any('/lists/{name}', 'UtilsController@lists'); // Get lists of id-name to ComboBoxes and ListWidgets in admin app
+
 /* Model routes */
 Route::any('/actors/', 'ActorController@all');
 
@@ -46,4 +51,3 @@ Route::any('/theatres/delete', 'TheatreController@delete')->middleware('role:del
 Route::any('/users/', 'UserController@all');
 
 
-Route::any('/updates/{stamp}', 'UpdatesController@updates');

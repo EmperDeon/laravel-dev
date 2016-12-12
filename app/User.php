@@ -41,7 +41,7 @@ class User extends Authenticatable
     public function hasPerm($s)
     {
         foreach ($this->perms->all() as $v) {
-            if ($v->perm == $s)
+            if ($v->name == $s)
                 return true;
         }
 
