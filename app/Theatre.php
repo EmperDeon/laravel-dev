@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Theatre extends Model
 {
-    protected $fillable = ['name', 'desc', 'img', 'address', 'tel_num'];
+    protected $fillable = ['name', 'desc', 'address', 'tel_num'];
 
     public function halls()
     {

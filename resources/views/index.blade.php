@@ -36,7 +36,8 @@ echo Date::now()->format('');
 
             <br style="clear: both;" />
             @if($article->img == 'none.png')
-                <br /><a href="/articles/{{ $article->id }}"><img src="/img/{{ $article->img }}" alt="Изображение новости" /></a>
+                <br /><a href="/articles/{{ $article->id }}">
+                </a>
             @endif
 
             {!! $article->desc_s !!}

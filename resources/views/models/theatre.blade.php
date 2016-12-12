@@ -4,7 +4,6 @@
     <h1> {{ $theatre->name }} </h1>
 
     <div class="theatre">
-        <img src="/img/{{ $theatre->img }}" alt="Изображение театра"/>
         <p>
             {!! $theatre->desc !!}
         </p>

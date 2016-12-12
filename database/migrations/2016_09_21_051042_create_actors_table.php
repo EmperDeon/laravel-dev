@@ -19,7 +19,6 @@ class CreateActorsTable extends Migration
 
             $table->string('name');
             $table->text('bio');
-            $table->string('img');
 
             $table->foreign('theatre_id')
                 ->references('id')

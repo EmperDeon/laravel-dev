@@ -51,7 +51,7 @@ class TheatreController extends Controller
         if (Theatre::where('name', $request->get('name'))->count() > 0)
             return response()->json(['error' => 'entry_exists']);
 
-        Theatre::create($this->getOnly($request, ['name', 'desc', 'img', 'address', 'tel_num']));
+        Theatre::create($this->getOnly($request, ['name', 'desc', 'address', 'tel_num']));
         return response()->json(['response' => 'successful']);
     }
 
@@ -69,7 +69,7 @@ class TheatreController extends Controller
 
         try {
             $m = Theatre::findOrFail($request->get('id'));
-            $m->update($this->getOnly($request, ['name', 'desc', 'img', 'address', 'tel_num']));
+            $m->update($this->getOnly($request, ['name', 'desc', 'address', 'tel_num']));
             return response()->json(['response' => 'successful']);
 
         } catch (ModelNotFoundException $e) {

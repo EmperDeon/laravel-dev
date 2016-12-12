@@ -4,7 +4,6 @@ TODO:  Fill DB with actual data
 TODO:
 TODO:  Refactor:
 TODO:   Languages (Add all words from templates to lang file)
-TODO:   Remove all references to images
 TODO:   Add PHPDoc to Models [and maybe other functions]
 
 TODO: [Master]

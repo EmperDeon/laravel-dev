@@ -20,7 +20,6 @@ class CreateArticlesTable extends Migration
             $table->string('name');
             $table->text('desc');
             $table->text('desc_s');
-            $table->string('img');
 
             $table->timestamps();
 

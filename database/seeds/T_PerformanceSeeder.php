@@ -25,13 +25,13 @@ class T_PerformanceSeeder extends TS
      */
     public function run()
     {
-        T_Performance::create(['theatre_id' => TS::id(1), 'perf_id' => TS::id(1), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание', 'img' => 'none.png']);
-        T_Performance::create(['theatre_id' => TS::id(1), 'perf_id' => TS::id(2), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание', 'img' => 'none.png']);
-        T_Performance::create(['theatre_id' => TS::id(1), 'perf_id' => TS::id(3), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание', 'img' => 'none.png']);
+        T_Performance::create(['theatre_id' => TS::id(1), 'perf_id' => TS::id(1), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание']);
+        T_Performance::create(['theatre_id' => TS::id(1), 'perf_id' => TS::id(2), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание']);
+        T_Performance::create(['theatre_id' => TS::id(1), 'perf_id' => TS::id(3), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание']);
 
-        T_Performance::create(['theatre_id' => TS::id(2), 'perf_id' => TS::id(2), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание', 'img' => 'none.png']);
-        T_Performance::create(['theatre_id' => TS::id(2), 'perf_id' => TS::id(3), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание', 'img' => 'none.png']);
-        T_Performance::create(['theatre_id' => TS::id(2), 'perf_id' => TS::id(4), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание', 'img' => 'none.png']);
+        T_Performance::create(['theatre_id' => TS::id(2), 'perf_id' => TS::id(2), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание']);
+        T_Performance::create(['theatre_id' => TS::id(2), 'perf_id' => TS::id(3), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание']);
+        T_Performance::create(['theatre_id' => TS::id(2), 'perf_id' => TS::id(4), 'desc' => 'Длинное описание с <b>тегами</b>', 'desc_s' => 'Короткое описание']);
 
         for ($i = 1 ; $i < 4 ; $i++)
             $this->add(TS::id($i), [1, 2, 3, 4, 5], array_rand([2, 2, 3, 4, 5], 4));

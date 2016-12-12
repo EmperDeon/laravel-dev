@@ -5,7 +5,8 @@
 
     @foreach($theatres as $theatre)
         <p class="theatre">
-            <a href="/theatres/{{ $theatre->id }}"> <img src="/img/{{ $theatre->img }}" alt="Изображение театра"/>{{ $theatre->name }}</a> <br /> <br />
+            <a href="/theatres/{{ $theatre->id }}">
+                {{ $theatre->name }}</a> <br /> <br />
             <b>Адрес: </b> {{ $theatre->address }} <br />
             <b>Телефон: </b> {{ $theatre->tel_num }}
 

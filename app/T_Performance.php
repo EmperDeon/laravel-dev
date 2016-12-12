@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class T_Performance extends Model
 {
-    protected $fillable = ['theatre_id', 'perf_id', 'desc', 'desc_s', 'img'];
+    protected $fillable = ['theatre_id', 'perf_id', 'desc', 'desc_s'];
 
     public function scopeBy_type($query, $id)
     {

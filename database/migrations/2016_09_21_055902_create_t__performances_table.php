@@ -20,7 +20,6 @@ class CreateTPerformancesTable extends Migration
 
             $table->text('desc');
             $table->string('desc_s');
-            $table->string('img');
 
             $table->timestamps();
 

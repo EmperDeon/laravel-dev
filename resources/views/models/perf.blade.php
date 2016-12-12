@@ -8,8 +8,6 @@
     <div class="perf">
         <div class="row">
             <div class="col-md-8">
-                {{--                <img src="/img/{{ $perf->img }}" alt="Изображение выступления"/>--}}
-
                 <h4>Ближайшие спектакли:</h4>
                 <table class="table" style="font-size: 9.5pt">
                     @foreach($posters as $poster)

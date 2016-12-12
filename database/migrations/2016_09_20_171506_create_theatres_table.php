@@ -17,7 +17,6 @@ class CreateTheatresTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('desc');
-            $table->string('img');
             $table->string('address');
             $table->string('tel_num');
             $table->timestamps();
