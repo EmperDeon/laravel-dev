@@ -16,7 +16,11 @@
 }
 
 .perf-types {
-  margin-left: 30px;
+  min-height: 1px; // Dirty fix - for 'More' panel
+
+  div.btn-group {
+    margin: 10px 0;
+  }
 
   a.btn {
     text-decoration: none;

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Theatre;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class TheatreController extends Controller
 {
@@ -23,7 +22,7 @@ class TheatreController extends Controller
     /**
      * Display the specified element.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
@@ -36,7 +35,8 @@ class TheatreController extends Controller
      *
      * @return string
      */
-    public function all () {
+    public function all()
+    {
         return response()->json(['response' => Theatre::with(['halls'])->get()]);
     }
 
@@ -58,7 +58,7 @@ class TheatreController extends Controller
     /**
      * Update the specified element/
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -110,8 +110,8 @@ class TheatreController extends Controller
     {
         $r = [];
 
-        foreach($n as $v)
-            if($request->has($v))
+        foreach ($n as $v)
+            if ($request->has($v))
                 $r[$v] = $request->get($v);
 
         return $r;

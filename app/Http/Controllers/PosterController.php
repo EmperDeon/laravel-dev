@@ -17,11 +17,13 @@ class PosterController extends Controller
     {
 
         $p = Poster
-            ::by_type($request->get('by_type'))
+            ::by_month($request->get('by_month'))
+            ->by_type($request->get('by_type'))
             ->by_theatre($request->get('by_theatre'))
-            ->by_month($request->get('by_month'))
+            ->by_name($request->get('by_name'))
+            ->by_date($request->get('by_day'))
+            ->by_time($request->get('by_time'))
             ->get();
-
 
         return view('models.posters')->with(['posters' => $p]);
     }
@@ -31,7 +33,8 @@ class PosterController extends Controller
      *
      * @return string
      */
-    public function all () {
+    public function all()
+    {
         return Poster::with(['halls'])->get();
     }
 
@@ -49,8 +52,8 @@ class PosterController extends Controller
     /**
      * Update the specified element/
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -61,7 +64,7 @@ class PosterController extends Controller
     /**
      * Remove the specified element.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

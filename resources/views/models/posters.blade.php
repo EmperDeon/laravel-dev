@@ -1,24 +1,26 @@
 @extends('template.index')
 
 @section('content')
-    <h2>Афиша @include('part.perf-types')</h2>
+    <h2>Афиша</h2>
+    @include('part.perf-types')
 
     <table class="posters-table">
     @forelse($posters as $poster)
         <tr>
             <td class="date">
-                {{ \Carbon\Carbon::parse($poster->date)->formatLocalized('%d %B %Y') }}
+                {{ Date::parse($poster->date)->format('d F Y, l') }}
             </td>
             <td class="name">
             <a href="/posters/{{ $poster->t_perf->id }}">
                 {{ $poster->t_perf->perf->name }}
             </a><br />
             <a href="/theatres/{{ $poster->t_perf->theatre_id }}" style="font-size: 10pt">{{ $poster->t_perf->theatre->name }}</a>
+            <a href="#" style="font-size: 9pt">{{ $poster->hall->name }}</a>
 
 
             </td>
             <td class="time">
-                {{ \Carbon\Carbon::parse($poster->date)->formatLocalized('%R') }}
+                {{ Date::parse($poster->date)->format('G:i') }}
             </td>
         </tr>
     @empty

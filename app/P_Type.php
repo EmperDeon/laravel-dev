@@ -8,7 +8,8 @@ class P_Type extends Model
 {
     protected $fillable = ['name'];
 
-    public function performances () {
+    public function performances()
+    {
         return $this->hasMany('App\Performance', 'type_id');
     }
 }

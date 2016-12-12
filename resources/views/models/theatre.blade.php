@@ -7,7 +7,6 @@
         <img src="/img/{{ $theatre->img }}" alt="Изображение театра"/>
         <p>
             {!! $theatre->desc !!}
-            @lang('global.lorem')
         </p>
     </div>
 

@@ -25,16 +25,13 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="/articles/" class="dropdown-toggle">@lang('global.news')</a>
+                    <a href="/theatres/" data-hover="dropdown" class="dropdown-toggle">@lang('global.theatres') <b class="nav-caret"></b></a>
+                    <ul role="menu" class="dropdown-menu">
+                        @foreach($theatres as $theatre)
+                            <li><a tabindex="-1" href="/theatres/{{ $theatre->id }}"> {{$theatre->name}}</a></li>
+                        @endforeach
+                    </ul>
                 </li>
-                {{--<li class="dropdown">--}}
-                    {{--<a href="/theatres/" data-hover="dropdown" class="dropdown-toggle">@lang('global.theatres') <b class="nav-caret"></b></a>--}}
-                    {{--<ul role="menu" class="dropdown-menu">--}}
-                        {{--@foreach($theatres as $theatre)--}}
-                            {{--<li><a tabindex="-1" href="/theatres/{{ $theatre->id }}"> {{$theatre->name}}</a></li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
 
             </ul>
             <ul class="nav navbar-nav navbar-right">

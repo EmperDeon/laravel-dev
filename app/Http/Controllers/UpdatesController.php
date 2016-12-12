@@ -11,12 +11,12 @@ use App\T_Hall;
 use App\T_Performance;
 use App\Theatre;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class UpdatesController extends Controller
 {
 
-    public function updates ($stamp) {
+    public function updates($stamp)
+    {
         $stamp = Carbon::createFromTimestamp($stamp);
 
         return response()->json([

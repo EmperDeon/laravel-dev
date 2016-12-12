@@ -1,7 +1,9 @@
 @extends('template.index')
 
 @section('content')
-    <h2>Репертуар @include('part.perf-types') </h2>
+    <h2>Репертуар</h2>
+    @include('part.perf-types')
+
     @forelse($perfs as $perf)
         <div class="perf-small col-sm-4">
             <a href="/performances/{{ $perf->id }}">
