@@ -15,7 +15,7 @@ class T_PerformanceSeeder extends TS
      */
     private function add ($p, $a, $r) {
         for($i = 0 ; $i < 4 ; $i++)
-            DB::table('perfs__actors')->insert(['t__perf_id' => TS::id($p), 'actor_id' => $a[$r[$i]]]);
+            DB::table('perfs__actors')->insert(['t__perf_id' => TS::id($p), 'actor_id' => TS::id($a[$r[$i]])]);
     }
 
     /**
