@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\TController;
 use App\Poster;
 use App\T_Performance;
 use Illuminate\Http\Request;
 
-class T_PerformanceController extends Controller
+class T_PerformanceController extends TController
 {
     /**
      * Get all elements for web.
@@ -48,6 +49,4 @@ class T_PerformanceController extends Controller
     {
         return T_Performance::with(['halls'])->get();
     }
-
-
 }

@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\TController;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 
-class AuthController extends Controller
+class AuthController extends TController
 {
     /**
      * Get token for login/password
@@ -35,22 +33,15 @@ class AuthController extends Controller
             return response()->json(['error' => 'invalid_credentials'], 401);
 
 
-        try {
-            // attempt to verify the credentials and create a token for the user
-            if (!$token = JWTAuth::fromUser($user)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
-            }
-
-            JWTAuth::setToken($token);
-
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token', 'message' => $e->getMessage()], 500);
-
+        // attempt to verify the credentials and create a token for the user
+        if (!$token = JWTAuth::fromUser($user)) {
+            return response()->json(['error' => 'invalid_credentials'], 401);
         }
 
+        JWTAuth::setToken($token);
+
         // all good so return the token
-        return response()->json(compact('token'));
+        return response()->json(['response' => $token]);
     }
 
     /**
@@ -61,14 +52,9 @@ class AuthController extends Controller
      */
     public function refresh(Request $request)
     {
-        try {
-            $newToken = JWTAuth::parseToken()->refresh();
+        $newToken = JWTAuth::parseToken()->refresh();
 
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'token_invalid', 'message' => $e->getMessage()], 401);
-        }
-
-        return response()->json(compact('newToken'));
+        return response()->json(['response' => $newToken]);
     }
 
 
@@ -80,23 +66,9 @@ class AuthController extends Controller
      */
     public function check(Request $request)
     {
-        Config::set('auth.providers.users.model', User::class);
+        $user = $this->getUser();
 
-        try {
-            $user = JWTAuth::parseToken()->authenticate();
-            return response()->json(['response' => 'ok'], 200);
-
-
-        } catch (TokenExpiredException $e) {
-            return response()->json(['error' => 'token_expired', 'message' => $e->getMessage()], 401);
-
-        } catch (TokenInvalidException $e) {
-            return response()->json(['error' => 'token_invalid', 'message' => $e->getMessage()], 401);
-
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'no_token', 'message' => $e->getMessage()], 401);
-
-        }
+        return response()->json(['response' => 'ok'], 200);
     }
 
     /**
@@ -107,25 +79,12 @@ class AuthController extends Controller
      */
     public function roles(Request $request)
     {
-        Config::set('auth.providers.users.model', User::class);
-        try {
-            $user = JWTAuth::parseToken()->authenticate();
+        $user = $this->getUser();
 
-            $r = [];
-            foreach ($user->perms as $v)
-                $r[] = $v->perm;
+        $r = [];
+        foreach ($user->perms as $v)
+            $r[] = $v->name;
 
-            return response()->json(['roles' => $r], 200);
-
-        } catch (TokenExpiredException $e) {
-            return response()->json(['error' => 'token_expired'], 401);
-
-        } catch (TokenInvalidException $e) {
-            return response()->json(['error' => 'token_invalid'], 401);
-
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'no_token'], 401);
-
-        }
+        return response()->json(['response' => $r], 200);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actor;
 use App\Article;
+use App\Interfaces\TController;
 use App\P_Type;
 use App\Performance;
 use App\Poster;
@@ -13,7 +14,7 @@ use App\Theatre;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class UtilsController extends Controller
+class UtilsController extends TController
 {
 
     /**

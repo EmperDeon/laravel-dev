@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class T_HallController extends Controller
+use App\Interfaces\TController;
+
+class T_HallController extends TController
 {
     //
 }

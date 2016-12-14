@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Actor;
+use App\Interfaces\TController;
 use Illuminate\Http\Request;
 
-class ActorController extends Controller
+class ActorController extends TController
 {
     /**
      * Get all elements for web.

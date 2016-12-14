@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\TController;
 use Illuminate\Http\Request;
 
-class PerformanceController extends Controller
+class PerformanceController extends TController
 {
 
     /**

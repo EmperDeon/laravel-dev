@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'login', 'phone', 'fio',
+        'login', 'phone', 'fio', 'position'
     ];
 
     /**
@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'hash', 'remember_token',
+        'password', 'remember_token',
     ];
 
     public function perms()

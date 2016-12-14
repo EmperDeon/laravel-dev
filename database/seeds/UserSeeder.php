@@ -19,6 +19,7 @@ class UserSeeder extends TS
 
             'fio'   =>  'Барыкин Илья Игоревич',
             'phone' =>  '+7 (917) 00-00-000',
+            'position' => 'Администратор сайта',
 
             'theatre_id' => '0'
         ]);
@@ -29,6 +30,7 @@ class UserSeeder extends TS
 
             'fio'   =>  'THEATRE 1 ADMIN FIO',
             'phone' =>  'THEATRE 1 ADMIN PHONE',
+            'position' => 'Администратор театра',
 
             'theatre_id' => '1'
         ]);
@@ -39,6 +41,7 @@ class UserSeeder extends TS
 
             'fio'   =>  'THEATRE 1 USER 1 FIO',
             'phone' =>  'THEATRE 1 USER 1 PHONE',
+            'position' => 'Должность 1',
 
             'theatre_id' => '1'
         ]);
@@ -49,6 +52,7 @@ class UserSeeder extends TS
 
             'fio'   =>  'THEATRE 1 USER 2 FIO',
             'phone' =>  'THEATRE 1 USER 2 PHONE',
+            'position' => 'Должность 2',
 
             'theatre_id' => '1'
         ]);

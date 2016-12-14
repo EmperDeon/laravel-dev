@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Interfaces\TController;
 use App\Theatre;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class TheatreController extends Controller
+class TheatreController extends TController
 {
     /**
      * Get all elements for web.

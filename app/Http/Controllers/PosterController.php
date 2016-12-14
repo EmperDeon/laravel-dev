@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\TController;
 use App\Poster;
 use Illuminate\Http\Request;
 
-class PosterController extends Controller
+class PosterController extends TController
 {
     /**
      * Get all elements for web.

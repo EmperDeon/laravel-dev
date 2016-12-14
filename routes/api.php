@@ -49,5 +49,8 @@ Route::any('/theatres/edit', 'TheatreController@update')->middleware('role:edit_
 Route::any('/theatres/delete', 'TheatreController@delete')->middleware('role:delete_theatre');
 
 Route::any('/users/', 'UserController@all');
+Route::any('/users/create', 'UserController@store');
+Route::any('/users/edit', 'UserController@update');
+Route::any('/users/delete', 'UserController@delete');
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Interfaces\TController;
 use App\User;
 use Closure;
 use Illuminate\Support\Facades\Config;
@@ -22,32 +23,13 @@ class CheckRole
      */
     public function handle($request, Closure $next, $perm)
     {
-        Config::set('auth.providers.users.model', User::class);
-        try {
-            $user = JWTAuth::parseToken()->authenticate();
+        $user = TController::getUser();
 
-            if ($user->hasPerm($perm)) {
-                return $next($request);
+        if ($user->hasPerm($perm)) {
+            return $next($request);
 
-            } else {
-                return response()->json(['error' => 'no_access'], 405);
-            }
-
-        } catch (TokenExpiredException $e) {
-            return response()->json(['error' => 'token_expired'], 401);
-
-        } catch (TokenInvalidException $e) {
-            return response()->json(['error' => 'token_invalid'], 401);
-
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'no_token'], 401);
-
+        } else {
+            return response()->json(['error' => 'no_access'], 405);
         }
     }
 }
-
-/*
- *
- *
- *
- * */
