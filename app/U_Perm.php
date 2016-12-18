@@ -6,12 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class U_Perm extends Model
 {
-    protected $fillable = ['user_id', 'role'];
+    protected $fillable = ['perm'];
 
-    public $timestamps = false;
-
-
-    public function user()
+    public function user() // TODO: Redo to Many-to-Many
     {
         return $this->belongsTo('App\User');
     }

@@ -52,9 +52,20 @@ class UtilsController extends TController
                 $r[] = ['id' => $v->id, 'name' => $v->name];
             }
             return response()->json(['response' => $r]);
-        } else {
 
-        return response()->json(['error' => 'no_such_table']);
-    }
+        } else if ($name == 'users') {
+            $user = $this->getUser();
+            $sql = 'SELECT id, fio as name FROM users';
+            if ($user->theatre_id != 0) {
+                $sql .= ' WHERE theatre_id = ' . $user->theatre_id;
+            }
+
+            $r = DB::select($sql);
+
+            return response()->json(['response' => $r]);
+
+        } else {
+            return response()->json(['error' => 'no_such_table']);
+        }
     }
 }

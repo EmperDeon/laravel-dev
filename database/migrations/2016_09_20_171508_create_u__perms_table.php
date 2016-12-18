@@ -17,7 +17,7 @@ class CreateUPermsTable extends Migration
             $table->increments('id');
             $table->string('name');
 
-            $table->timestamps();
+//            $table->timestamps();
         });
 
         Schema::create('user__perms', function (Blueprint $table) {

@@ -72,12 +72,12 @@ class AuthController extends TController
     }
 
     /**
-     * Return all user roles
+     * Return all user permissions
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function roles(Request $request)
+    public function perms(Request $request)
     {
         $user = $this->getUser();
 

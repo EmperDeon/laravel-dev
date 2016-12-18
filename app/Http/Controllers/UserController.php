@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\TController;
+use App\Interfaces\TS;
+use App\U_Perm;
 use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends TController
 {
@@ -27,6 +31,27 @@ class UserController extends TController
     }
 
     /**
+     * Get element by specified $id
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function get($id)
+    {
+        $u = User::findOrFail($id);
+        $r = $u->toJson();
+        $r = json_decode($r);
+
+        $perms = [];
+        foreach ($u->perms as $perm)
+            $perms[] = $perm->id;
+
+        $r->perms = implode(',', $perms);
+
+        return response()->json(['response' => $r]);
+    }
+
+    /**
      * Create new element.
      *
      * @param \Illuminate\Http\Request $request
@@ -34,10 +59,21 @@ class UserController extends TController
      */
     public function store(Request $request)
     {
-        if (User::where('name', $request->get('name'))->count() > 0)
+        if (User::where('login', $request->get('login'))->count() > 0)
             return response()->json(['error' => 'entry_exists']);
 
-        User::create($this->getOnly($request, ['name', 'desc', 'address', 'tel_num']));
+        User::create($this->getOnly($request, ['fio', 'position', 'login', 'phone']));
+
+        $user = User::all()->last();
+        $user->theatre_id = $this->getUser()->theatre_id;
+        $user->password = Hash::make($request->get('password'));
+        $user->save();
+
+        $perms = explode(',', $request->get('perms'));
+        foreach ($perms as $p_id) {
+            DB::table('user__perms')->insert(['user_id' => $user->id, 'perm_id' => $p_id]);
+        }
+
         return response()->json(['response' => 'successful']);
     }
 
@@ -54,8 +90,20 @@ class UserController extends TController
         }
 
         try {
-            $m = User::findOrFail($request->get('id'));
-            $m->update($this->getOnly($request, ['fio', 'position', 'login', 'phone']));
+            $user = User::findOrFail($request->get('id'));
+            $user->update($this->getOnly($request, ['fio', 'position', 'login', 'phone']));
+
+            if (($t = $request->get('password')) && $t != '')
+                $user->password = Hash::make($t);
+
+            if ($request->has('perms')) {
+                DB::delete('DELETE FROM user__perms WHERE user_id = ' . $user->id);
+                foreach (explode(',', $request->get('perms')) as $p_id) {
+                    DB::table('user__perms')->insert(['user_id' => $user->id, 'perm_id' => $p_id]);
+                }
+            }
+
+            $user->save();
 
             return response()->json(['response' => 'successful']);
 
@@ -89,6 +137,8 @@ class UserController extends TController
     }
 
     /**
+     * Get array of existing values from request
+     *
      * @param \Illuminate\Http\Request $request
      * @param array $n
      * @return array
