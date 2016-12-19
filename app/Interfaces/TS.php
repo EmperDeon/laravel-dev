@@ -7,10 +7,10 @@ use Illuminate\Database\Seeder;
 class TS extends Seeder
 {
     static public function id($i) {
-        if (env('APP_DEBUG', false) == false)
-            return ($i - 1) * 10 + 4;
-        else
-            return $i;
+        if ($i == 0)
+            return 0;
+
+        return ($i - 1) * 10 + 4;
     }
 
     /**
