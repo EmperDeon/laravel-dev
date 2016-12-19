@@ -14,23 +14,28 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends TController
 {
     /**
+     * [API]
+     *
      * Get all elements in json
      *
-     * @return string
+     * @return \Illuminate\Http\JsonResponse
      */
     public function all()
     {
         $user = $this->getUser();
-        if ($user->theatre_id == 0) {
-            $users = User::with(['perms']);
-        } else {
-            $users = User::with(['perms'])->where('theatre_id', $user->theatre_id);
+        $users = User::with(['perms']);
+
+        if ($user->theatre_id != 0) {
+            $users = $users->where('theatre_id', $user->theatre_id);
+
         }
 
         return response()->json(['response' => $users->get()]);
     }
 
     /**
+     * [API]
+     *
      * Get element by specified $id
      *
      * @param $id
@@ -52,6 +57,8 @@ class UserController extends TController
     }
 
     /**
+     * [API]
+     *
      * Create new element.
      *
      * @param \Illuminate\Http\Request $request
@@ -62,7 +69,7 @@ class UserController extends TController
         if (User::where('login', $request->get('login'))->count() > 0)
             return response()->json(['error' => 'entry_exists']);
 
-        User::create($this->getOnly($request, ['fio', 'position', 'login', 'phone']));
+        User::create($this->getArgs($request));
 
         $user = User::all()->last();
         $user->theatre_id = $this->getUser()->theatre_id;
@@ -78,6 +85,8 @@ class UserController extends TController
     }
 
     /**
+     * [API]
+     *
      * Update the specified element/
      *
      * @param \Illuminate\Http\Request $request
@@ -91,7 +100,7 @@ class UserController extends TController
 
         try {
             $user = User::findOrFail($request->get('id'));
-            $user->update($this->getOnly($request, ['fio', 'position', 'login', 'phone']));
+            $user->update($this->getArgs($request));
 
             if (($t = $request->get('password')) && $t != '')
                 $user->password = Hash::make($t);
@@ -114,6 +123,8 @@ class UserController extends TController
     }
 
     /**
+     * [API]
+     *
      * Remove the specified element.
      *
      * @param \Illuminate\Http\Request $request
@@ -125,32 +136,19 @@ class UserController extends TController
             return response()->json(['error' => 'no_id']);
         }
 
-        try {
-            $m = User::findOrFail($request->get('id'));
-//            $m->delete();
-            return response()->json(['response' => 'successful']);
-
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'id_not_exists']);
-
-        }
+        $m = User::findOrFail($request->get('id'));
+        $m->delete();
+        return response()->json(['response' => 'successful']);
     }
 
     /**
-     * Get array of existing values from request
+     * Get from request only items of $fillable(model)
      *
-     * @param \Illuminate\Http\Request $request
-     * @param array $n
+     * @param Request $request
      * @return array
      */
-    public function getOnly(Request $request, array $n):array
+    private function getArgs(Request $request):array
     {
-        $r = [];
-
-        foreach ($n as $v)
-            if ($request->has($v))
-                $r[$v] = $request->get($v);
-
-        return $r;
+        return $this->getOnly($request, (new User)->getFillable());
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Actor extends Model
 {
-    protected $fillable = ['name', 'theatre_id', 'bio'];
+    protected $fillable = ['name', 'bio'];
 
     public function theatre()
     {
