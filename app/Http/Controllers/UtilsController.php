@@ -12,6 +12,7 @@ use App\T_Hall;
 use App\T_Performance;
 use App\Theatre;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class UtilsController extends TController
@@ -41,9 +42,10 @@ class UtilsController extends TController
      * @param $name
      * @return \Illuminate\Http\JsonResponse
      */
-    public function lists($name)
+    public function lists($name) // TODO: Refactor after curse
     {
-        $allowed = ['u__perms'];
+        $allowed = ['u__perms', 'performances', 'theatres', 'p__types'];
+        $allowed_id = ['articles', 'users', 't__performances', 't__halls'];
 
         if (array_search($name, $allowed) !== false) {
             $a = DB::table($name)->get();
@@ -53,9 +55,16 @@ class UtilsController extends TController
             }
             return response()->json(['response' => $r]);
 
-        } else if ($name == 'users') {
+        } else if (array_search($name, $allowed_id) !== false) {
             $user = $this->getUser();
-            $sql = 'SELECT id, fio as name FROM users';
+
+            if ($name == 'users')
+                $sql = 'SELECT id, fio AS name FROM users';
+            else if ($name == "t__performances")
+                $sql = 'SELECT t.id, p.name FROM t__performances AS t LEFT JOIN performances AS p ON t.perf_id=p.id';
+            else
+                $sql = 'SELECT id, name FROM ' . $name;
+
             if ($user->theatre_id != 0) {
                 $sql .= ' WHERE theatre_id = ' . $user->theatre_id;
             }
@@ -64,8 +73,47 @@ class UtilsController extends TController
 
             return response()->json(['response' => $r]);
 
+        } else if ($name == 'posters') {
+            $user = $this->getUser();
+
+            $sql = 'SELECT r.id, CONCAT(p.name,\' - \',DATE_FORMAT(date, \'%d-%m-%Y %H:%i\'),\' - \',h.name) as name FROM posters AS r
+  JOIN t__performances AS t ON r.t_perf_id=t.id
+  JOIN performances AS p ON t.perf_id=p.id
+  JOIN t__halls AS h ON r.hall_id=h.id';
+
+            if ($user->theatre_id != 0) {
+                $sql .= ' WHERE t.theatre_id = ' . $user->theatre_id;
+            }
+
+            $r = DB::select($sql);
+
+            return response()->json(['response' => $r]);
+
+
         } else {
             return response()->json(['error' => 'no_such_table']);
         }
+    }
+
+    /**
+     * If current user is admin, change theatre_id to $id from request
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function change(Request $request)
+    {
+        $user = $this->getUser();
+
+        if ($user->login != 'admin')
+            return response()->json(['error' => 'no_access']);
+
+        if (!$request->has('id'))
+            return response()->json(['error' => 'no_id']);
+
+        $user->theatre_id = $request->get('id');
+        $user->save();
+
+        return response()->json(['response' => 'successful']);
     }
 }

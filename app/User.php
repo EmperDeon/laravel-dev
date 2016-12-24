@@ -38,7 +38,7 @@ class User extends Authenticatable
      * @param $s
      * @return bool
      */
-    public function hasPerm($s)
+    public function hasPerm(string $s)
     {
         foreach ($this->perms->all() as $v) {
             if ($v->name == $s)
@@ -47,6 +47,4 @@ class User extends Authenticatable
 
         return false;
     }
-
-
 }

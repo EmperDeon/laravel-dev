@@ -18,7 +18,7 @@ class CreatePerformancesTable extends Migration
 
             $table->string('name');
             $table->string('author');
-            $table->integer('type_id')->unsigned()->nullable();
+            $table->integer('type_id')->unsigned();
 
             $table->foreign('type_id')
                 ->references('id')

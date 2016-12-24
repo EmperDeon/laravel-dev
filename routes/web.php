@@ -18,7 +18,7 @@ use Carbon\Carbon;
 Route::get('/', function () {
     return view('index')
         ->with('posters', Poster::closest(4)->get())
-        ->with('articles', Article::limit(4)->get());
+        ->with('articles', Article::limit(4)->orderBy('id', 'desc')->get());
     }
 );
 

@@ -98,28 +98,23 @@ class UserController extends TController
             return response()->json(['error' => 'no_id']);
         }
 
-        try {
-            $user = User::findOrFail($request->get('id'));
-            $user->update($this->getArgs($request));
+        $user = User::findOrFail($request->get('id'));
+        $user->update($this->getArgs($request));
 
-            if (($t = $request->get('password')) && $t != '')
-                $user->password = Hash::make($t);
+        if (($t = $request->get('password')) && $t != '')
+            $user->password = Hash::make($t);
 
-            if ($request->has('perms')) {
-                DB::delete('DELETE FROM user__perms WHERE user_id = ' . $user->id);
-                foreach (explode(',', $request->get('perms')) as $p_id) {
-                    DB::table('user__perms')->insert(['user_id' => $user->id, 'perm_id' => $p_id]);
-                }
+        if ($request->has('perms')) {
+            DB::delete('DELETE FROM user__perms WHERE user_id = ' . $user->id);
+            foreach (explode(',', $request->get('perms')) as $p_id) {
+                DB::table('user__perms')->insert(['user_id' => $user->id, 'perm_id' => $p_id]);
             }
-
-            $user->save();
-
-            return response()->json(['response' => 'successful']);
-
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'id_not_exists']);
-
         }
+
+        $user->save();
+
+        return response()->json(['response' => 'successful']);
+
     }
 
     /**

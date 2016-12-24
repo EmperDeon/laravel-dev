@@ -31,7 +31,7 @@ echo Date::now()->format('');
                 <a href="/articles/{{ $article->id }}">{{ $article->name }}</a>
             </div>
             <div style="float: right">
-                {{ Date::parse($poster->date)->format('d F Y') }}
+                {{ Date::parse($article->updated_at)->format('d F Y') }}
             </div>
 
             <br style="clear: both;" />

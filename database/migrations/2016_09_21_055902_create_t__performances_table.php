@@ -15,7 +15,7 @@ class CreateTPerformancesTable extends Migration
     {
         Schema::create('t__performances', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('theatre_id')->unsigned();
+            $table->integer('theatre_id')->unsigned()->nullable();
             $table->integer('perf_id')->unsigned();
 
             $table->text('desc');
@@ -27,19 +27,21 @@ class CreateTPerformancesTable extends Migration
                 ->references('id')
                 ->on('performances')
                 ->onDelete('cascade');
-
-            $table->foreign('theatre_id')
-                ->references('id')
-                ->on('theatres')
-                ->onDelete('cascade');
         });
 
         Schema::create('perfs__actors', function (Blueprint $table) {
             $table->integer('t__perf_id')->unsigned();
             $table->integer('actor_id')->unsigned();
 
-            $table->foreign('t__perf_id')->references('id')->on('t__performances')->onDelete('cascade');
-            $table->foreign('actor_id')->references('id')->on('actors')->onDelete('cascade');
+            $table->foreign('t__perf_id')
+                ->references('id')
+                ->on('t__performances')
+                ->onDelete('cascade');
+
+            $table->foreign('actor_id')
+                ->references('id')
+                ->on('actors')
+                ->onDelete('cascade');
         });
     }
 

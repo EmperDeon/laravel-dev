@@ -21,7 +21,7 @@ class UserSeeder extends TS
             'phone' =>  '+7 (917) 00-00-000',
             'position' => 'Администратор сайта',
 
-            'theatre_id' => TS::id(0)
+            'theatre_id' => TS::id(1)
         ]);
 
         User::create([

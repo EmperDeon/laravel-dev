@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\Date\Date;
 
 class Poster extends Model
 {
@@ -75,6 +76,16 @@ class Poster extends Model
             $r[] = $v->time;
 
         return $r;
+    }
+
+    public function getDateAttribute($date)
+    {
+        return Date::parse($date)->format('d.m.Y H:i');
+    }
+
+    public function setDateAttribute($date)
+    {
+        $this->attributes['date'] = Date::createFromFormat('d.m.Y H:i', $date);
     }
 
     public function scopeBy_time($query, $time)

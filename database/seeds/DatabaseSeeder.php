@@ -1,6 +1,7 @@
 <?php
 
 use App\Interfaces\TS;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends TS
 {
@@ -11,6 +12,11 @@ class DatabaseSeeder extends TS
      */
     public function run()
     {
+        DB::statement('SET @@global.auto_increment_increment = 10');
+        DB::statement('SET @@global.auto_increment_offset = 4');
+        DB::statement('SET @@session.auto_increment_increment = 10');
+        DB::statement('SET @@session.auto_increment_offset = 4');
+
         $this->call(TheatreSeeder::class);
 
         $this->call(UserSeeder::class);

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class T_Hall extends Model
 {
-    protected $fillable = ['theatre_id', 'name', 'json'];
+    protected $fillable = ['name', 'json'];
 
     public function theatre()
     {

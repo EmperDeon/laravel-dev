@@ -17,7 +17,7 @@ class ArticleController extends TController
      */
     public function index()
     {
-        return view('models.articles')->with(['articles' => Article::all()]);
+        return view('models.articles')->with(['articles' => Article::query()->orderBy('id', 'desc')->get()]);
     }
 
     /**
@@ -44,13 +44,13 @@ class ArticleController extends TController
     public function all()
     {
         $user = $this->getUser();
-        if ($user->theatre_id == 0) {
-            $articles = Article::all();
-        } else {
-            $articles = Article::where('theatre_id', $user->theatre_id)->get();
+        $articles = Article::query()->orderBy('id', 'desc');
+
+        if ($user->theatre_id != 0) {
+            $articles =$articles->where('theatre_id', $user->theatre_id);
         }
 
-        return response()->json(['response' => $articles]);
+        return response()->json(['response' => $articles->get()]);
     }
 
     /**
@@ -79,7 +79,7 @@ class ArticleController extends TController
         if (Article::where('name', $request->get('name'))->count() > 0)
             return response()->json(['error' => 'entry_exists']);
 
-        Article::create($this->getOnly($request, ['name', 'desc', 'desc_s']));
+        Article::create($this->getArgs($request));
 
         $article = Article::all()->last();
         $article->theatre_id = $this->getUser()->theatre_id;
@@ -104,7 +104,7 @@ class ArticleController extends TController
 
         $article = Article::findOrFail($request->get('id'));
 
-        $article->update($this->getOnly($request, ['name', 'desc', 'desc_s']));
+        $article->update($this->getArgs($request));
         $article->save();
 
         return response()->json(['response' => 'successful']);
@@ -118,7 +118,7 @@ class ArticleController extends TController
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         if (!$request->has('id')) {
             return response()->json(['error' => 'no_id']);
@@ -128,5 +128,16 @@ class ArticleController extends TController
         $m->delete();
         return response()->json(['response' => 'successful']);
 
+    }
+
+    /**
+     * Get from request only items of $fillable(model)
+     *
+     * @param Request $request
+     * @return array
+     */
+    private function getArgs(Request $request):array
+    {
+        return $this->getOnly($request, (new Article)->getFillable());
     }
 }

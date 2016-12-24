@@ -15,15 +15,11 @@ class CreateTHallsTable extends Migration
     {
         Schema::create('t__halls', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('theatre_id')->unsigned();
+            $table->integer('theatre_id')->unsigned()->nullable();
             $table->string('name');
             $table->text('json');
+            
             $table->timestamps();
-
-            $table->foreign('theatre_id')
-                ->references('id')
-                ->on('theatres')
-                ->onDelete('cascade');
         });
     }
 

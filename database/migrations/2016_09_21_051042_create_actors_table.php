@@ -15,15 +15,10 @@ class CreateActorsTable extends Migration
     {
         Schema::create('actors', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('theatre_id')->unsigned();
+            $table->integer('theatre_id')->unsigned()->nullable();
 
             $table->string('name');
             $table->text('bio');
-
-            $table->foreign('theatre_id')
-                ->references('id')
-                ->on('theatres')
-                ->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -50,6 +51,10 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof ModelNotFoundException) {
             return response()->json(['error' => 'no_id', 'message' => $e->getMessage()], 404);
+
+        } else if ($e instanceof QueryException) {
+            return response()->json(['error' => 'no_def_value', 'message' => $e->getMessage()], 404);
+
         }
 
         if ($e instanceof TokenExpiredException) {
