@@ -12,10 +12,10 @@ class DatabaseSeeder extends TS
      */
     public function run()
     {
-        DB::statement('SET @@global.auto_increment_increment = 10');
-        DB::statement('SET @@global.auto_increment_offset = 4');
-        DB::statement('SET @@session.auto_increment_increment = 10');
-        DB::statement('SET @@session.auto_increment_offset = 4');
+//        DB::statement('SET @@global.auto_increment_increment = 10');
+//        DB::statement('SET @@global.auto_increment_offset = 4');
+//        DB::statement('SET @@session.auto_increment_increment = 10');
+//        DB::statement('SET @@session.auto_increment_offset = 4');
 
         $this->call(TheatreSeeder::class);
 
