@@ -28,7 +28,8 @@ echo Date::now()->format('');
         <hr>
         <div class="article-small">
             <div style="float: left">
-                <a href="/articles/{{ $article->id }}">{{ $article->name }}</a>
+                <a href="/articles/{{ $article->id }}">{{ $article->name }}</a><br />
+                <a href="/theatres/{{ $article->theatre_id }}" style="font-size: 10pt">{{ $article->theatre->name }}</a><br />
             </div>
             <div style="float: right">
                 {{ Date::parse($article->updated_at)->format('d F Y') }}

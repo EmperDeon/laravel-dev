@@ -11,7 +11,7 @@
             </a><br />
             <a href="/theatres/{{ $perf->theatre_id }}" style="font-size: 10pt">{{ $perf->theatre->name }}</a>
             <p>
-                {{ $perf->desc_s }}
+                {!! $perf->desc_s !!}
             </p>
             <br style="clear: both" />
         </div>

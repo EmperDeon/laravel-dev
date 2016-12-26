@@ -18,7 +18,7 @@ class TController extends BaseController
     /**
      * Get \App\User from token
      *
-     * @return mixed
+     * @return \App\User
      */
     static public function getUser()
     {

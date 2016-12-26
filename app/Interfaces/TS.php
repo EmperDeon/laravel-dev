@@ -6,7 +6,12 @@ use Illuminate\Database\Seeder;
 
 class TS extends Seeder
 {
-    static public function id($i) {
+    /**
+     * @param $i
+     * @return int
+     */
+    static public function id($i)
+    {
         if ($i == 0)
             return 0;
 
@@ -18,5 +23,7 @@ class TS extends Seeder
      *
      * @return void
      */
-    public function run() {}
+    public function run()
+    {
+    }
 }

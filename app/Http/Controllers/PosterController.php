@@ -10,14 +10,15 @@ use Jenssegers\Date\Date;
 class PosterController extends TController
 {
     /**
+     * [WEB]
+     *
      * Get all elements for web.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
-
         $p = Poster
             ::by_month($request->get('by_month'))
             ->by_type($request->get('by_type'))
@@ -25,6 +26,7 @@ class PosterController extends TController
             ->by_name($request->get('by_name'))
             ->by_date($request->get('by_day'))
             ->by_time($request->get('by_time'))
+            ->orderBy('date', 'asc')
             ->get();
 
         return view('models.posters')->with(['posters' => $p]);
@@ -36,7 +38,7 @@ class PosterController extends TController
      *
      * Get all elements in json
      *
-     * @return string
+     * @return \Illuminate\Http\JsonResponse
      */
     public function all()
     {
@@ -79,8 +81,8 @@ class PosterController extends TController
      *
      * Create new element.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -88,7 +90,8 @@ class PosterController extends TController
                 ['t_perf_id', '=', $request->get('t_perf_id')],
                 ['hall_id', '=', $request->get('hall_id')],
                 ['date', '=', Date::createFromFormat('d.m.Y H:i', $request->get('date'))->__toString()]
-            ])->count() > 0)
+            ])->count() > 0
+        )
             return response()->json(['error' => 'entry_exists']);
 
         Poster::create($this->getArgs($request));
@@ -102,7 +105,7 @@ class PosterController extends TController
      * Update the specified element.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request)
     {
@@ -123,8 +126,8 @@ class PosterController extends TController
      *
      * Remove the specified element.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete(Request $request)
     {
@@ -140,7 +143,7 @@ class PosterController extends TController
     /**
      * Get from request only items of $fillable(model)
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     private function getArgs(Request $request):array

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Actor;
 use App\Article;
 use App\Interfaces\TController;
 use App\P_Type;
@@ -14,20 +13,25 @@ use App\Theatre;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UtilsController extends TController
 {
 
     /**
+     * [API]
+     *
+     * Return all rows from tables which are updated since $stamp
+     *
      * @param $stamp
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updates($stamp)
+    public function updates($stamp) // TODO: Cleanup [Redo to DB class]
     {
         $stamp = Carbon::createFromTimestamp($stamp);
 
         return response()->json([
-            'actors' => Actor::where('updated_at', '>', $stamp)->get(),
+//            'actors' => Actor::where('updated_at', '>', $stamp)->get(),
             'articles' => Article::where('updated_at', '>', $stamp)->get(),
             'p_types' => P_Type::where('updated_at', '>', $stamp)->get(),
             'performances' => Performance::where('updated_at', '>', $stamp)->get(),
@@ -39,12 +43,16 @@ class UtilsController extends TController
     }
 
     /**
+     * [API]
+     *
+     * Return array of pairs [id, name] for ComboBox'es
+     *
      * @param $name
      * @return \Illuminate\Http\JsonResponse
      */
-    public function lists($name) // TODO: Refactor after curse
+    public function lists($name) // TODO: Refactor after curse !!IMPORTANT!!
     {
-        $allowed = ['u__perms', 'performances', 'theatres', 'p__types'];
+        $allowed = ['performances', 'theatres', 'p__types'];
         $allowed_id = ['articles', 'users', 't__performances', 't__halls'];
 
         if (array_search($name, $allowed) !== false) {
@@ -66,7 +74,11 @@ class UtilsController extends TController
                 $sql = 'SELECT id, name FROM ' . $name;
 
             if ($user->theatre_id != 0) {
-                $sql .= ' WHERE theatre_id = ' . $user->theatre_id;
+                $sql .= ' WHERE (theatre_id = ' . $user->theatre_id . ')';
+            }
+
+            if ($name == 'users') {
+                $sql .= ' AND (login <> \'admin\')';
             }
 
             $r = DB::select($sql);
@@ -76,7 +88,7 @@ class UtilsController extends TController
         } else if ($name == 'posters') {
             $user = $this->getUser();
 
-            $sql = 'SELECT r.id, CONCAT(p.name,\' - \',DATE_FORMAT(date, \'%d-%m-%Y %H:%i\'),\' - \',h.name) as name FROM posters AS r
+            $sql = 'SELECT r.id, CONCAT(p.name,\' - \',DATE_FORMAT(date, \'%d-%m-%Y %H:%i\'),\' - \',h.name) AS name FROM posters AS r
   JOIN t__performances AS t ON r.t_perf_id=t.id
   JOIN performances AS p ON t.perf_id=p.id
   JOIN t__halls AS h ON r.hall_id=h.id';
@@ -89,6 +101,11 @@ class UtilsController extends TController
 
             return response()->json(['response' => $r]);
 
+        } else if ($name == 'u__perms') {
+            $sql = 'SELECT id, name FROM u__perms WHERE (name NOT LIKE \'theatre%\') AND (name NOT LIKE \'actor%\')';
+            $r = DB::select($sql);
+
+            return response()->json(['response' => $r]);
 
         } else {
             return response()->json(['error' => 'no_such_table']);
@@ -96,6 +113,8 @@ class UtilsController extends TController
     }
 
     /**
+     * [API]
+     *
      * If current user is admin, change theatre_id to $id from request
      *
      * @param \Illuminate\Http\Request $request

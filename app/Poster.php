@@ -70,7 +70,7 @@ class Poster extends Model
     private function getTimeCont()
     {
         $r = [];
-        $a = DB::select('select distinct DATE_FORMAT(date, \'%H:%i\') AS \'time\' FROM posters');
+        $a = DB::select('SELECT DISTINCT DATE_FORMAT(date, \'%H:%i\') AS \'time\' FROM posters');
 
         foreach ($a as $v)
             $r[] = $v->time;
@@ -97,6 +97,8 @@ class Poster extends Model
 
     public function scopeClosest($query, $count)
     {
+        $query->orderBy('date', 'asc');
+
         if ($count)
             return $query->where('date', '>', Carbon::today())->limit($count);
         else

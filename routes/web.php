@@ -13,7 +13,6 @@
 
 use App\Article;
 use App\Poster;
-use Carbon\Carbon;
 
 Route::get('/', function () {
     return view('index')
@@ -22,8 +21,8 @@ Route::get('/', function () {
     }
 );
 
-Route::get('/actors/', 'ActorController@index');
-Route::get('/actors/{id}', 'ActorController@show');
+//Route::get('/actors/', 'ActorController@index');
+//Route::get('/actors/{id}', 'ActorController@show');
 
 Route::get('/theatres/', 'TheatreController@index');
 Route::get('/theatres/{id}', 'TheatreController@show');

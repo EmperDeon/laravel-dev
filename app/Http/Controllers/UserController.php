@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\TController;
-use App\Interfaces\TS;
-use App\U_Perm;
 use App\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +23,7 @@ class UserController extends TController
         $users = User::with(['perms']);
 
         if ($user->theatre_id != 0) {
-            $users = $users->where('theatre_id', $user->theatre_id);
+            $users = $users->where([['theatre_id', '=', $user->theatre_id], ['login', '<>', 'admin']]);
 
         }
 
@@ -62,7 +59,7 @@ class UserController extends TController
      * Create new element.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -87,10 +84,10 @@ class UserController extends TController
     /**
      * [API]
      *
-     * Update the specified element/
+     * Update the specified element
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request)
     {
@@ -123,7 +120,7 @@ class UserController extends TController
      * Remove the specified element.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete(Request $request)
     {
@@ -139,7 +136,7 @@ class UserController extends TController
     /**
      * Get from request only items of $fillable(model)
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     private function getArgs(Request $request):array

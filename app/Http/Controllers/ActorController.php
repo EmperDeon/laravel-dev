@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 class ActorController extends TController
 {
     /**
+     * [WEB]
+     *
      * Get all elements for web.
      *
      * @return string
@@ -19,6 +21,8 @@ class ActorController extends TController
     }
 
     /**
+     * [WEB]
+     *
      * Display the specified element.
      *
      * @param  int $id

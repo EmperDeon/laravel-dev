@@ -22,7 +22,7 @@ class DatabaseSeeder extends TS
         $this->call(UserSeeder::class);
         $this->call(U_PermsSeeder::class);
 
-        $this->call(ActorSeeder::class);
+//        $this->call(ActorSeeder::class);
         $this->call(P_TypeSeeder::class);
         $this->call(PerformanceSeeder::class);
 

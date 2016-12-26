@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 /**
- * Generate 'REST' routes for model
+ * Generate 'REST' API routes for model
  *
  * @param $n - Model name
  */
@@ -40,14 +40,10 @@ Route::any('/theatres/change', 'UtilsController@change');
 
 /* Model routes */
 addRoute('article', 'Article');
-addRoute('actor'  , 'Actor'  );
+//addRoute('actor'  , 'Actor'  );
 addRoute('theatre', 'Theatre');
 addRoute('user'   , 'User'   );
 
 addRoute('t_perf', 'T_Performance');
 addRoute('poster', 'Poster');
 
-Route::any('/perfs/', 'PerformanceController@all');
-Route::any('/t_perfs/', 'T_PerformanceController@all');
-
-Route::any('/t_halls/', 'T_HallController@all');

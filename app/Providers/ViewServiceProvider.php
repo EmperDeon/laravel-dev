@@ -168,7 +168,7 @@ class ViewServiceProvider extends ServiceProvider
 
         // Return menu
         $p = '<div class="btn-group dropdown" style="margin-right:10px;">';
-        $p .= '<a href="/'. $url . $t_id .'" class="btn btn-primary"  data-hover="dropdown" >'. $t_name .'</a>';
+        $p .= '<a href="/' . $url . $t_id . '" class="btn btn-primary"  data-hover="dropdown" >' . $t_name . '</a>';
         $p .= '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">';
         $p .= '<span class="caret"></span></button>';
         $p .= '<ul class="dropdown-menu" role="menu">';

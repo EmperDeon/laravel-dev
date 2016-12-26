@@ -3,25 +3,19 @@
 namespace App\Http\Middleware;
 
 use App\Interfaces\TController;
-use App\User;
 use Closure;
-use Illuminate\Support\Facades\Config;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CheckRole
 {
     /**
-     * Handle an incoming request, and check if user has needed $role.
+     * Handle an incoming request, and check if user has needed $perm.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
-     * @param  $perm
+     * @param  string $perm
      * @return mixed
      */
-    public function handle($request, Closure $next, $perm)
+    public function handle($request, Closure $next, string $perm)
     {
         $user = TController::getUser();
 

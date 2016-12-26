@@ -6,12 +6,13 @@ use App\Http\Requests;
 use App\Interfaces\TController;
 use App\T_Hall;
 use App\Theatre;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class TheatreController extends TController
 {
     /**
+     * [WEB]
+     *
      * Get all elements for web.
      *
      * @return \Illuminate\View\View
@@ -22,10 +23,12 @@ class TheatreController extends TController
     }
 
     /**
+     * [WEB]
+     *
      * Display the specified element.
      *
      * @param  int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -33,9 +36,11 @@ class TheatreController extends TController
     }
 
     /**
+     * [API]
+     *
      * Get all elements in json
      *
-     * @return string
+     * @return \Illuminate\Http\JsonResponse
      */
     public function all()
     {
@@ -58,10 +63,12 @@ class TheatreController extends TController
     }
 
     /**
+     * [API]
+     *
      * Create new element.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -85,10 +92,12 @@ class TheatreController extends TController
     }
 
     /**
-     * Update the specified element/
+     * [API]
+     *
+     * Update the specified element
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request)
     {
@@ -103,14 +112,16 @@ class TheatreController extends TController
         $m->update($this->getArgs($request));
 
         // Create new halls
-        $t_id = $this->getUser()->theatre_id;
-        $halls = explode(',', $request->get('halls_new'));
-        foreach ($halls as $name) {
-            $hall = new T_Hall;
-            $hall->theatre_id = $t_id;
-            $hall->name = $name;
-            $hall->json = '{}';
-            $hall->save();
+        if ($request->get('halls_new') != '') {
+            $t_id = $this->getUser()->theatre_id;
+            $halls = explode(',', $request->get('halls_new'));
+            foreach ($halls as $name) {
+                $hall = new T_Hall;
+                $hall->theatre_id = $t_id;
+                $hall->name = $name;
+                $hall->json = '{}';
+                $hall->save();
+            }
         }
 
         // Delete requested halls
@@ -125,10 +136,12 @@ class TheatreController extends TController
     }
 
     /**
+     * [API]
+     *
      * Remove the specified element.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete(Request $request)
     {
@@ -144,7 +157,7 @@ class TheatreController extends TController
     /**
      * Get from request only items of $fillable(model)
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     private function getArgs(Request $request):array

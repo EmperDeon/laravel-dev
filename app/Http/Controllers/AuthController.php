@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Interfaces\TController;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -13,9 +12,11 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends TController
 {
     /**
+     * [API]
+     *
      * Get token for login/password
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function auth(Request $request)
@@ -45,12 +46,13 @@ class AuthController extends TController
     }
 
     /**
+     * [API]
+     *
      * Refresh token
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function refresh(Request $request)
+    public function refresh()
     {
         $newToken = JWTAuth::parseToken()->refresh();
 
@@ -59,25 +61,29 @@ class AuthController extends TController
 
 
     /**
+     * [API]
+     *
      * Validate token
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function check(Request $request)
+    public function check()
     {
         $user = $this->getUser();
-
-        return response()->json(['response' => 'ok'], 200);
+        if ($user)
+            return response()->json(['response' => 'ok']);
+        else
+            return response()->json(['error' => 'token_invalid']);
     }
 
     /**
+     * [API]
+     *
      * Return all user permissions
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function perms(Request $request)
+    public function perms()
     {
         $user = $this->getUser();
 
@@ -85,6 +91,6 @@ class AuthController extends TController
         foreach ($user->perms as $v)
             $r[] = $v->name;
 
-        return response()->json(['response' => $r], 200);
+        return response()->json(['response' => $r]);
     }
 }

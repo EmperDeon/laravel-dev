@@ -26,7 +26,7 @@ class ArticleController extends TController
      * Display the specified element.
      *
      * @param  int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -39,7 +39,7 @@ class ArticleController extends TController
      *
      * Get all elements in json
      *
-     * @return string
+     * @return \Illuminate\Http\JsonResponse
      */
     public function all()
     {
@@ -47,7 +47,7 @@ class ArticleController extends TController
         $articles = Article::query()->orderBy('id', 'desc');
 
         if ($user->theatre_id != 0) {
-            $articles =$articles->where('theatre_id', $user->theatre_id);
+            $articles = $articles->where('theatre_id', $user->theatre_id);
         }
 
         return response()->json(['response' => $articles->get()]);
@@ -71,8 +71,8 @@ class ArticleController extends TController
      *
      * Create new element.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -94,7 +94,7 @@ class ArticleController extends TController
      * Update the specified element.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request)
     {
@@ -115,8 +115,8 @@ class ArticleController extends TController
      *
      * Remove the specified element.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete(Request $request)
     {
@@ -133,7 +133,7 @@ class ArticleController extends TController
     /**
      * Get from request only items of $fillable(model)
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     private function getArgs(Request $request):array
